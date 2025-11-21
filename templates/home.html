@@ -1,0 +1,67 @@
+{# templates/home.html #}
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home — Family Tree{% endblock %}
+
+{% block content %}
+  <section class="hero py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 heading-serif mb-3">Preserve your family story</h1>
+          <p class="lead text-muted">Create private, invite-only family trees. Add ancestors, map relationships, and visualize generations with an elegant, traditional interface.</p>
+          <div class="mt-4">
+            {% if user.is_authenticated %}
+              <a class="btn btn-primary btn-lg me-2" href="{% url 'families:list' %}">Open My Families</a>
+            {% else %}
+              <a class="btn btn-primary btn-lg me-2" href="{% url 'accounts:register' %}">Get Started</a>
+              <a class="btn btn-outline-secondary btn-lg" href="{% url 'accounts:login' %}">Login</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-lg-6 d-none d-lg-block">
+          <div class="card shadow-sm tree-hero-card">
+            <img class="card-img-top" src="{% static 'images/hero-tree.png' %}" alt="family tree illustration" style="max-height:360px; object-fit:cover;">
+            <div class="card-body">
+              <p class="mb-0 small text-muted">A private space to document family histories — photos, dates, places, and stories.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features py-4">
+    <div class="container">
+      <h2 class="h4 heading-serif">Features</h2>
+      <div class="row g-3 mt-3">
+        <div class="col-md-4">
+          <div class="card feature-card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Invite-only Families</h5>
+              <p class="card-text">Create family groups with unique invite codes and control member roles.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card feature-card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Person & Relationship Management</h5>
+              <p class="card-text">Add ancestors, upload photos, and build parent-child and spouse relationships.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card feature-card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Visualize the Tree</h5>
+              <p class="card-text">Interactive tree view powered by D3.js with lazy-loading for large families.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

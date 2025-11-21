@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Members of {{ family.name }}</h2>
+
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th>Joined</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in memberships %}
+            <tr>
+                <td>{{ m.user.get_username }}<br><small>{{ m.user.email }}</small></td>
+                <td>{{ m.get_role_display }}</td>
+                <td>{{ m.joined_at|date:"SHORT_DATETIME_FORMAT" }}</td>
+                <td>
+                    {% if request.user.id in owner_admin_users and m.role != 'owner' %}
+                        <form method="post" action="{%url 'families:remove_member' family.pk m.user.id %}" style="display:inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                        </form>
+                    {% endif %}
+
+                    {% if request.user == owner_user %}
+                        <form method="post" action="{% url 'families:change_role' family.pk m.pk %}" style="display:inline">
+                            {% csrf_token %}
+                            <select name="role" class="form-select form-select-sm d-inline-block" style="width:auto">
+                                <option value="member" {% if m.role == 'member' %}selected{% endif %}>Member</option>
+                                <option value="admin" {% if m.role == 'admin' %}selected{% endif %}>Admin</option>
+                                <option value="owner" {% if m.role == 'owner' %}selected{% endif %}>Owner</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-outline-primary">Set</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr/>
+    <h4>Pending Join Requests</h4>
+    {% if join_requests %}
+        <ul class="list-group">
+            {% for jr in join_requests %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ jr.user.get_username }}</strong><br><small>{{ jr.user.email }}</small>
+                    <p class="mb-0">{{ jr.message|default:"(No message)" }}</p>
+                </div>
+                <div>
+                    <form method="post" action="{% url 'families:approve_join' family.pk jr.pk %}" style="display:inline">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-success">Approve</button>
+                    </form>
+                    <form method="post" action="{% url 'families:reject_join' family.pk jr.pk %}" style="display:inline">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-danger">Reject</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending join requests.</p>
+    {% endif %}
+</div>
+{% endblock %}

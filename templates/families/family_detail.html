@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between">
+    <h2>{{ object.name }}</h2>
+    <div>
+      <a class="btn btn-outline-secondary" href="{% url 'families:members' object.pk %}">Members</a>
+      <a class="btn btn-outline-secondary" href="{% url 'families:edit' object.pk %}">Edit</a>
+    </div>
+  </div>
+
+  <p class="text-muted">Code: <code>{{ object.code }}</code></p>
+  <p>{{ object.description|linebreaks }}</p>
+
+  <hr/>
+  <h5>Quick actions</h5>
+  <a class="btn btn-sm btn-success" href="{% url 'families:join' %}">Join another family</a>
+  <a class="btn btn-sm btn-info" href="{% url 'families:invite' object.pk %}">Invite member</a>
+</div>
+{% endblock %}

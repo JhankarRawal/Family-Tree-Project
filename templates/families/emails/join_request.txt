@@ -1,0 +1,6 @@
+New join request for {{ family.name }}
+
+Requester: {{ requester.get_full_name }} ({{ requester.email }})
+
+Message:
+{{ message }}

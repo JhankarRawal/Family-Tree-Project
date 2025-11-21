@@ -1,0 +1,121 @@
+/* static/css/style.css */
+
+/* Color palette */
+:root {
+  --navy: #2C3E50;
+  --brown: #8B7355;
+  --gold: #D4AF37;
+  --cream: #FAF9F6;
+  --text-dark: #333333;
+}
+
+/* Base body */
+body.bg-cream, .bg-cream {
+  background-color: var(--cream) !important;
+  color: var(--text-dark);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Heading serif */
+.heading-serif {
+  font-family: "Georgia", "Times New Roman", serif;
+  color: var(--navy);
+}
+
+/* Navbar custom */
+.navbar.bg-primary {
+  background-color: var(--navy) !important;
+}
+.brand-title {
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #fff;
+}
+
+/* Buttons */
+.btn-gold {
+  background-color: var(--gold);
+  color: #222;
+  border: none;
+}
+.btn-outline-gold {
+  border: 1px solid var(--gold);
+  color: var(--navy);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;          /* set fixed width */
+    min-height: 100vh;
+    position: fixed;
+    top: 84px;             /* same height as navbar */
+    left: 0;
+    background: #f8f9fa;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+}
+
+/* Sidebar links */
+.sidebar .nav-link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Remove hover hiding */
+.sidebar .nav-link:hover {
+  color: #FFD700;       /* change color on hover, optional */
+  background-color: #222; /* optional hover background */
+}
+
+/* Sidebar heading */
+.sidebar .sidebar-heading {
+  font-weight: 700;
+  color: #FFD700; /* gold heading */
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        top: 0;
+        min-height: auto;
+        border-right: none;
+        padding: 0.5rem;
+        background-color: #1e1e1e; /* keep dark on mobile too */
+    }
+}
+/* Cards */
+.card {
+  border-radius: 0.8rem;
+}
+.feature-card {
+  border-left: 6px solid var(--brown);
+}
+
+/* Hero */
+.hero {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.tree-hero-card {
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Footer */
+.footer {
+  background: white;
+  border-top: 1px solid #eee;
+}
+
+/* Small screens adjustments */
+@media (max-width: 767.98px) {
+  .sidebar { display: none; }
+  .brand-title { font-size: 1rem; }
+}
+
+/* Utility */
+.text-muted { color: #6c757d !important; }

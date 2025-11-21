@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Invite someone to {{ family.name }}</h2>
+  <form method="post">{% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" class="form-control" required placeholder="invitee@example.com">
+    </div>
+    <button class="btn btn-primary">Send Invitation</button>
+    <a class="btn btn-secondary" href="{% url 'families:members' family.pk %}">Back</a>
+  </form>
+</div>
+{% endblock %}

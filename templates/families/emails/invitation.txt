@@ -1,0 +1,10 @@
+
+
+
+{{ inviter.get_full_name }} invited you to join {{ family.name }}.
+
+Click the link to accept:
+{{ accept_url }}
+
+This link expires in 7 days.
+

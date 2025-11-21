@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>{{ person.first_name }} {{ person.last_name }}</h2>
+
+{% for membership in request.user.family_memberships.all %}
+    {% if membership.family.id == family.id %}
+        {% with role=membership.role %}
+            {% if role == "owner" or role == "admin" or role == "editor" %}
+            <div class="mb-3">
+
+             <div>
+                <a href="{% url 'persons:person_edit' pk=family.id person_id=person.id %}" class="btn btn-warning">Edit</a>
+
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+        Delete
+    </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete <strong>{{ person.first_name }} {{ person.last_name }}</strong>?
+      </div>
+      <div class="modal-footer">
+        <!-- Form to submit deletion -->
+        <form method="post" action="{% url 'persons:person_delete' pk=family.id person_id=person.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, delete</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+         
+             </div>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+{% endfor %}
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    {% if person.photo %}
+                        <img src="{{ person.photo.url }}" class="img-fluid rounded border">
+                    {% else %}
+                        <img src="{% static 'img/default-person.png' %}" class="img-fluid rounded border">
+                    {% endif %}
+                </div>
+
+                <div class="col-md-9">
+                    <table class="table">
+                        <tr><th>Gender:</th><td>{{ person.get_gender_display }}</td></tr>
+                        <tr><th>Birth Date:</th><td>{{ person.birth_date }}</td></tr>
+                        <tr><th>Death Date:</th><td>{{ person.death_date|default:"—" }}</td></tr>
+                        <tr><th>Birth Place:</th><td>{{ person.birth_place }}</td></tr>
+                        <tr><th>Living:</th><td>{% if person.is_living %}Yes{% else %}No{% endif %}</td></tr>
+                        <tr><th>Notes:</th><td>{{ person.notes|linebreaks }}</td></tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

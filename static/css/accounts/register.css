@@ -1,0 +1,101 @@
+/* Container: horizontal center + top-aligned */
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  padding-top: 80px; /* distance from top */
+  background-color: #f3f4f6;
+}
+
+/* Form styling */
+.form {
+  background-color: #fff;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #0b1a33; /* navy color */
+}
+
+.form-message {
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+/* Input container */
+.input-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  outline: none;
+}
+
+/* .input-container span {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  color: #9CA3AF;
+  pointer-events: none;
+} */
+
+/* Button */
+.submit {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: #d4a017; /* gold */
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.3s;
+}
+
+.submit:hover {
+  background-color: #b88a10;
+}
+
+/* Signin link */
+.signin {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.signin a {
+  text-decoration: underline;
+  color: #0b1a33; /* navy */
+}
+.input-container {
+  position: relative;
+}
+
+.input-container span {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}

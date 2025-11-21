@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h2>Join Family by Code</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    
+    <div class="form-group">
+        {{ form.code.label_tag }}
+        {{ form.code }}
+        {{ form.code.errors }}
+    </div>
+
+    <div class="form-group">
+        {{ form.message.label_tag }}
+        {{ form.message }}
+        {{ form.message.errors }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Join Request</button>
+</form>
+{% endblock %}

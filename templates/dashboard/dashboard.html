@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Welcome, {{ user.get_full_name|default:user.username }}</h2>
+
+    <h3>Your Families</h3>
+    <div class="row">
+        {% for family in families %}
+        <div class="col-md-6 mb-4">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">{{ family.name }}</div>
+                <div class="card-body">
+                    <p><strong>Members:</strong> {{ family.memberships.count }}</p>
+                    <p><strong>Description:</strong> {{ family.description|default:"-" }}</p>
+                    <canvas id="chart-{{ family.id }}"></canvas>
+                    <a href="{% url 'families:detail' pk=family.id %}" class="btn btn-primary mt-2">Manage Family</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>You are not part of any families yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
