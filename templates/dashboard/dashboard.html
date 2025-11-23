@@ -15,6 +15,11 @@
                     <p><strong>Description:</strong> {{ family.description|default:"-" }}</p>
                     <canvas id="chart-{{ family.id }}"></canvas>
                     <a href="{% url 'families:detail' pk=family.id %}" class="btn btn-primary mt-2">Manage Family</a>
+
+                    <!-- Activity Logs button for this family -->
+                    <a href="{% url 'activitylog:logs' family_id=family.id %}" class="btn btn-secondary mt-2">
+                        View Logs
+                    </a>
                 </div>
             </div>
         </div>

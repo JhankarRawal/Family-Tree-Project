@@ -58,8 +58,16 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                             <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a></li>
-                            <li><a class="dropdown-item" href="{% url 'families:list' %}">My Families</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                                {% for membership in request.user.family_memberships.all %}
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'dashboard:dashboard' membership.family.id %}">
+                                            {{ membership.family.name }} Dashboard
+                                        </a>
+                                    </li>
+                                {% empty %}
+                                    <li><span class="dropdown-item text-muted">No families yet</span></li>
+                                {% endfor %}                        
+                              <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="post" action="{% url 'accounts:logout' %}">
                                     {% csrf_token %}

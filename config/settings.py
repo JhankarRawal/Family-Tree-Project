@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'apps.relationships',
     'apps.search',
     'apps.exports',
+    'apps.activitylog',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

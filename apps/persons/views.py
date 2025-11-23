@@ -1,16 +1,11 @@
-from django.views.generic import ListView
+from django.shortcuts import get_object_or_404, redirect
 from django.db.models import Q
 from .models import Person
 from .mixins import FamilyPermissionMixin
-from django.views.generic import CreateView
-from django.urls import reverse
+from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,ListView
+from django.urls import reverse,reverse_lazy
 from .forms import PersonForm
-from django.views.generic import DetailView
-from django.views.generic import UpdateView
-from django.views.generic import DeleteView
-from django.urls import reverse_lazy
-
-
+from apps.activitylog.utils import log_activity
 
 class PersonListView(FamilyPermissionMixin, ListView):
     model = Person
@@ -59,6 +54,17 @@ class PersonCreateView(FamilyPermissionMixin, CreateView):
     def form_valid(self, form):
         form.instance.family = self.family
         return super().form_valid(form)
+    def form_valid(self, form):
+        person = form.save()
+        log_activity(
+            family=person.family,
+            user=self.request.user,
+            action_type="create",
+            target_type="person",
+            target_id=person.id,
+            description=f"Created person {person.first_name} {person.last_name}"
+        )
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse("persons:person_detail", kwargs={
@@ -86,6 +92,18 @@ class PersonUpdateView(FamilyPermissionMixin, UpdateView):
 
     def get_queryset(self):
         return Person.objects.filter(family=self.family)
+    def form_valid(self, form):
+        person = form.save()
+
+        log_activity(
+            family=person.family,
+            user=self.request.user,
+            action_type="update",
+            target_type="person",
+            target_id=person.id,
+            description=f"Updated person {person.first_name} {person.last_name}"
+        )
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse("persons:person_detail", kwargs={
@@ -101,6 +119,20 @@ class PersonDeleteView(FamilyPermissionMixin, DeleteView):
 
     def get_queryset(self):
         return Person.objects.filter(family=self.family)
+    def post(self, request, family_id, person_id):
+        person = get_object_or_404(Person, id=person_id)
+        person.delete()
+
+        log_activity(
+            family=person.family,
+            user=request.user,
+            action_type="delete",
+            target_type="person",
+            target_id=person_id,
+            description=f"Deleted person {person.first_name} {person.last_name}"
+        )
+
+        return redirect("families:family_detail", pk=family_id)
 
     def get_success_url(self):
         return reverse_lazy("persons:list", kwargs={"pk": self.family.pk})

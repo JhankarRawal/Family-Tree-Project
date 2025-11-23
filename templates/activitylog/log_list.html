@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h3>📜 Activity Log - {{ family.name }}</h3>
+{% if log.family %}
+<a href="{% url 'dashboard:dashboard' log.family.id %}" class="btn btn-secondary btn-sm">
+    ⬅ Back to Dashboard
+</a>
+{% else %}
+<a href="{% url 'dashboard:dashboard' request.user.family_memberships.first.family.id %}" class="btn btn-secondary btn-sm">
+    ⬅ Back to Dashboard
+</a>
+{% endif %}
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Time</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th>Target</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td>{{ log.timestamp|date:"Y-m-d H:i" }}</td>
+                        <td>{{ log.user }}</td>
+                        <td>
+                            <span class="badge bg-info">{{ log.action_type }}</span>
+                        </td>
+                        <td>{{ log.target_type }} (ID {{ log.target_id }})</td>
+                        <td>{{ log.description }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted p-4">
+                            No activity recorded yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

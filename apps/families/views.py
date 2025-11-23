@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 
+from apps.activitylog.utils import log_activity
 from apps.persons.models import Person
 from .models import Family, FamilyMembership, Invitation, JoinRequest
 from .forms import FamilyForm, JoinByCodeForm, InvitationForm
@@ -123,6 +124,14 @@ class ApproveJoinRequestView(LoginRequiredMixin, TemplateView):
             jr.processed_by = request.user
             jr.processed_at = timezone.now()
             jr.save()
+            log_activity(
+                family=JoinRequest.family,
+                user=request.user,
+                action_type="approve",
+                target_type="join_request",
+                target_id=JoinRequest.id,
+                description=f"Approved join request from {JoinRequest.user.get_full_name() or JoinRequest.user.username}"
+                )
 
             # Add user as member
             FamilyMembership.objects.create(family=family, user=jr.user, role='member')
@@ -161,6 +170,14 @@ class RejectJoinRequestView(LoginRequiredMixin, TemplateView):
         jr.processed_by = request.user
         jr.processed_at = timezone.now()
         jr.save()
+        log_activity(
+        family=JoinRequest.family,
+        user=request.user,
+        action_type="reject",
+        target_type="join_request",
+        target_id=JoinRequest.id,
+        description=f"Rejected join request from {JoinRequest.user.get_full_name() or JoinRequest.user.username}"
+    )
 
         # Notify user
         send_mail(

@@ -28,9 +28,10 @@ urlpatterns = [
     path('accounts/', include('apps.accounts.urls')),
     path('families/', include('apps.families.urls')),
     path("<int:pk>/people/", include("apps.persons.urls")),
-    # path('relationships/', include('apps.relationships.urls')),
+    path('relationships/', include('apps.relationships.urls')),
     path('search/', include('apps.search.urls')),
     path('exports/', include('apps.exports.urls')),
+    path("activitylog/", include("apps.activitylog.urls")),
 
 ]
 

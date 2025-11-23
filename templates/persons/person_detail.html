@@ -78,4 +78,76 @@
     </div>
 
 </div>
+<hr class="my-4">
+
+<h3>Relationships</h3>
+
+<ul class="list-group mb-3">
+    {% for rel in person.relationships_from.all %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+                <strong>{{ rel.relationship_type|title }}:</strong>
+                {{ rel.related_person.first_name }} {{ rel.related_person.last_name }}
+            </span>
+
+            <!-- Delete Relationship Button -->
+            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRelModal{{ rel.id }}">
+                Delete
+            </button>
+
+            <!-- Relationship Delete Modal -->
+            <div class="modal fade" id="deleteRelModal{{ rel.id }}" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Delete Relationship</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    Delete relationship:
+                    <strong>
+                        {{ person.first_name }} {{ person.last_name }}
+                        → {{ rel.relationship_type }}
+                        → {{ rel.related_person }}
+                    </strong> ?
+                  </div>
+                  <div class="modal-footer">
+                    <form method="post" action="{% url 'relationships:delete' family.id rel.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Yes, delete</button>
+                    </form>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </li>
+    {% empty %}
+        <li class="list-group-item">No relationships found.</li>
+    {% endfor %}
+</ul>
+
+
+<!-- Add Relationship Buttons (only for owner/admin/editor) -->
+{% for membership in request.user.family_memberships.all %}
+    {% if membership.family.id == family.id %}
+        {% if membership.role == "owner" or membership.role == "admin" or membership.role == "editor" %}
+            <div class="mb-4">
+                <a href="{% url 'relationships:add_parent' family.id person.id %}" class="btn btn-outline-primary btn-sm">
+                    Add Parent
+                </a>
+
+                <a href="{% url 'relationships:add_child' family.id person.id %}" class="btn btn-outline-primary btn-sm">
+                    Add Child
+                </a>
+
+                <a href="{% url 'relationships:add_spouse' family.id person.id %}" class="btn btn-outline-primary btn-sm">
+                    Add Spouse
+                </a>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
 {% endblock %}

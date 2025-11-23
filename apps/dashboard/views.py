@@ -12,11 +12,15 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        family_id = self.kwargs.get('family_id')  # get family from URL
+
 
         # Get memberships
         memberships = FamilyMembership.objects.filter(user=user)
         families = [m.family for m in memberships]
         family_roles = {m.family.id: m.role for m in memberships}
+        if family_id:
+            families = [f for f in families if f.id == int(family_id)]
 
         family_stats = {}
         chart_data = {}
@@ -38,10 +42,11 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
         # Pending join requests for owner/admin
         pending_requests = JoinRequest.objects.filter(
             family__in=families,
-            approved__isnull=True,  # pending
+            status='pending',
             family__memberships__user=user,
             family__memberships__role__in=['owner', 'admin']
         ).select_related('user', 'family')
+        
 
         context.update({
             'families': families,
