@@ -32,6 +32,7 @@ urlpatterns = [
     path('search/', include('apps.search.urls')),
     path('exports/', include('apps.exports.urls')),
     path("activitylog/", include("apps.activitylog.urls")),
+    path("<int:family_id>/tree/", include("apps.tree.urls"))
 
 ]
 

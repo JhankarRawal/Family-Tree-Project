@@ -77,7 +77,7 @@ class PersonDetailView(FamilyPermissionMixin, DetailView):
     template_name = "persons/person_detail.html"
     pk_url_kwarg = "person_id"
     context_object_name = "person"
-    allowed_roles = ["owner", "admin", "editor", "viewer"]
+    allowed_roles = ["owner", "admin", "editor", "member"]
 
     def get_queryset(self):
         return Person.objects.filter(family=self.family)

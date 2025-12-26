@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h2 class="mb-3 ms-4 ml-8">Family Tree</h2>
+
+<div class="controls mb-2 ms-4">
+    <label>
+        <input type="checkbox" id="toggleDeceased" checked>
+        Show deceased
+    </label>
+</div>
+
+<canvas id="treeCanvas" width="800" height="800"></canvas>
+
+<script>
+    const FAMILY_ID = "{{ family_id }}";
+    const ROOT_ID = "{{ root_person.id }}";
+</script>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="{% static 'js/tree/tree.js' %}"></script>
+{% endblock %}

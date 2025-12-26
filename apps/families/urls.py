@@ -5,8 +5,6 @@ from . import views
 app_name = 'families'
 
 urlpatterns = [
-    # path('tree/<int:pk>/', views.family_tree_view, name='tree'),
-
     path('list/', views.FamilyListView.as_view(), name='list'),
     path('create/', views.FamilyCreateView.as_view(), name='create'),
     path('join/', views.JoinByCodeView.as_view(), name='join'),
@@ -19,8 +17,8 @@ urlpatterns = [
     path('<int:pk>/members/reject/<int:jr_pk>/', views.RejectJoinRequestView.as_view(), name='reject_join'),
     path('<int:pk>/members/remove/<int:member_id>/', views.RemoveMemberView.as_view(), name='remove_member'),
     path('<int:pk>/members/change-role/<int:member_id>/',views.ChangeMemberRoleView.as_view(), name='change_role'),
-
     # Invitations
     path('<int:pk>/invite/', views.invite_member, name='invite'),
     path('accept-invite/', views.AcceptInviteView.as_view(), name='accept_invite'),
+    path('<int:family_id>/tree/', include('apps.tree.urls',namespace='tree_per_family')),
 ]

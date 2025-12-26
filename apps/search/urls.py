@@ -1,10 +1,18 @@
 from django.urls import path
-from django.http import HttpResponse
+from .views import (
+    PersonSearchView,
+    PersonFilterView,
+    PersonAutocompleteView,
+    RelationshipPathView,
+    AncestorsView,
+)
 
-def person_search(request): return HttpResponse("Person search")
-
-app_name = 'search'
+app_name = "search"
 
 urlpatterns = [
-    path('', person_search, name='person_search'),
+    path("<int:family_id>/persons/", PersonSearchView.as_view(), name="person_search"),
+    path("<int:family_id>/filters/", PersonFilterView.as_view(), name="filters"),
+    path("<int:family_id>/autocomplete/", PersonAutocompleteView.as_view(), name="autocomplete"),
+    path("<int:family_id>/path/<int:start_id>/<int:end_id>/", RelationshipPathView.as_view(), name="path"),
+    path("<int:family_id>/person/<int:person_id>/relations/", AncestorsView.as_view(), name="person_relations"),
 ]

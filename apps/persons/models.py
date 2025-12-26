@@ -2,6 +2,9 @@ from django.db import models
 from apps.accounts.models import User
 from apps.families.models import Family
 from django.utils import timezone
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import TrigramSimilarity
+
 import os
 
 def person_photo_path(instance, filename):
@@ -56,6 +59,11 @@ class Person(models.Model):
 
     class Meta:
         ordering = ['first_name', 'last_name']
+        indexes = [
+            GinIndex(fields=["first_name", "last_name"],
+                     name='person_name_gin',
+            opclasses=['gin_trgm_ops','gin_trgm_ops'],), 
+        ]
 
     def __str__(self):
         full = f"{self.first_name} {self.middle_name or ''} {self.last_name}"

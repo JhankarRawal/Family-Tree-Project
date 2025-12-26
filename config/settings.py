@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 from decouple import config, Csv
 
+
+
 # BASE DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     
     # Third-party apps
     'crispy_forms',
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     'apps.search',
     'apps.exports',
     'apps.activitylog',
+    'apps.tree',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -123,7 +127,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 # EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_PORT = config("EMAIL_PORT", cast=int)
+EMAIL_PORT = config("EMAIL_PORT",cast=int)
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")

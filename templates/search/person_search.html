@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Search Members{% endblock %}
+
+{% block content %}
+{% if members %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Birth Date</th>
+            <th>Gender</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <td>
+                {{ member.first_name }}{% if member.middle_name %}{{ member.middle_name }}
+                {% endif %}
+                {{ member.last_name }}
+            </td>
+            <td>{{ member.birth_date }}</td>
+            <td>{{ member.gender }}</td>
+            <td>
+                <a href="{% url 'persons:person_detail' family.id member.id %}"
+                    class="btn btn-sm btn-outline-primary">View</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No members found.</p>
+{% endif %}
+{% endblock %}
