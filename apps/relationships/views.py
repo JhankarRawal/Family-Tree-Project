@@ -77,7 +77,8 @@ class BaseAddRelationshipView(View):
         if self.relationship_type == "parent":
             if is_ancestor(related_person, person):
                 messages.error(request, f"Cannot add {related_person} as parent due to circular ancestry.")
-                return redirect("persons:person_detail", pk=family.id, person_id=person.id)
+                return redirect("families:persons:person_detail", family_id=family.id, person_id=person.id)
+
 
             safe_create(related_person, person, "parent")
             safe_create(person, related_person, "child")
@@ -85,7 +86,9 @@ class BaseAddRelationshipView(View):
         elif self.relationship_type == "child":
             if is_ancestor(person, related_person):
                 messages.error(request, f"Cannot add {related_person} as child due to circular ancestry.")
-                return redirect("persons:person_detail", pk=family.id, person_id=person.id)
+                return redirect("families:persons:person_detail", family_id=family.id, person_id=person.id)
+
+
 
             safe_create(person, related_person, "child")
             safe_create(related_person, person, "parent")
@@ -94,7 +97,9 @@ class BaseAddRelationshipView(View):
             # Avoid self-spouse
             if person == related_person:
                 messages.error(request, "Cannot add the same person as spouse.")
-                return redirect("persons:person_detail", pk=family.id, person_id=person.id)
+                return redirect("families:persons:person_detail", family_id=family.id, person_id=person.id)
+
+
 
             safe_create(person, related_person, "spouse")
             safe_create(related_person, person, "spouse")
@@ -108,7 +113,8 @@ class BaseAddRelationshipView(View):
             )
 
         messages.success(request, f"{self.relationship_type.capitalize()} relationship added successfully.")
-        return redirect("persons:person_detail", pk=family.id, person_id=person.id)
+        return redirect("families:persons:person_detail", family_id=family.id, person_id=person.id)
+
     
 # Specific endpoints
 class AddParentView(BaseAddRelationshipView):
@@ -128,6 +134,7 @@ class RelationshipDeleteView(View):
     template_name = "relationships/delete_confirm.html"
 
     def get(self, request, family_id, rel_id):
+        """Show confirmation page"""
         family = get_object_or_404(Family, id=family_id)
         relationship = get_object_or_404(Relationship, id=rel_id, family=family)
 
@@ -137,24 +144,33 @@ class RelationshipDeleteView(View):
         })
 
     def post(self, request, family_id, rel_id):
+        """Delete the relationship safely and log activity"""
         family = get_object_or_404(Family, id=family_id)
         relationship = get_object_or_404(Relationship, id=rel_id, family=family)
-        desc = f"Deleted relationship ({self.relationship_type}) between {Relationship.person} and {Relationship.related_person}"
 
-        # Delete both sides of the relationship
+        # Build description for log
+        desc = f"Deleted {relationship.relationship_type} relationship between {relationship.person} and {relationship.related_person}"
+
+        # Delete the specific relationship
         Relationship.objects.filter(
-            person=relationship.person,
-            related_person=relationship.related_person,
-            relationship_type=relationship.relationship_type
+            id=relationship.id
         ).delete()
 
-        Relationship.objects.filter(
+        # Delete the reciprocal relationship if exists
+        reciprocal_qs = Relationship.objects.filter(
             person=relationship.related_person,
             related_person=relationship.person,
-            relationship_type__in=["parent", "child", "spouse"]
-        ).delete()
+        )
 
-        
+        # For parent/child relationships, delete only matching types
+        if relationship.relationship_type in ["parent", "child"]:
+            reciprocal_qs = reciprocal_qs.filter(
+                relationship_type__in=["parent", "child"]
+            )
+
+        reciprocal_qs.delete()
+
+        # Log activity
         log_activity(
             family=family,
             user=request.user,
@@ -164,6 +180,11 @@ class RelationshipDeleteView(View):
             description=desc
         )
 
-
-        messages.success(request, "Relationship deleted.")
-        return redirect("persons:person_detail", family_id, relationship.person.id)
+        messages.success(request, "Relationship deleted successfully.")
+        return redirect("families:persons:person_detail", family_id=family.id, person_id=relationship.person.id)
+    
+#     return redirect(
+#     "persons:person_detail",
+#     pk=family.id,                     # match <int:pk>
+#     person_id=relationship.person.id  # match <int:person_id>
+# )

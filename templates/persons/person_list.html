@@ -10,12 +10,13 @@
     <form method="get" class="row mb-4 g-2">
         <div class="col-md-4">
             <input type="text" name="q" class="form-control" placeholder="Search by name or place"
-                   value="{{ request.GET.q }}">
+                value="{{ request.GET.q }}">
         </div>
 
         <div class="col-md-3">
             <select name="gender" class="form-select">
                 <option value="">Gender (all)</option>
+                prettier-ignore
                 <option value="male" {% if request.GET.gender == 'male' %}selected{% endif %}>Male</option>
                 <option value="female" {% if request.GET.gender == 'female' %}selected{% endif %}>Female</option>
                 <option value="other" {% if request.GET.gender == 'other' %}selected{% endif %}>Other</option>
@@ -37,9 +38,9 @@
 
     <!-- Add button (permission-based) -->
     {% if user_role == "owner" or user_role == "admin" %}
-<a href="{% url 'persons:person_add' family.id %}" class="btn btn-primary">
-    Add Person
-</a>    {% endif %}
+    <a href="{% url 'families:persons:person_add' family_id=family.id %}" class="btn btn-primary">
+        Add Person
+    </a> {% endif %}
 
     <!-- Table -->
     <div class="card shadow-sm">
@@ -60,9 +61,10 @@
                     <tr>
                         <td>
                             {% if p.photo %}
-                                <img src="{{ p.photo.url }}" class="rounded" style="width:40px; height:40px; object-fit:cover;">
+                            <img src="{{ p.photo.url }}" class="rounded"
+                                style="width:40px; height:40px; object-fit:cover;">
                             {% else %}
-                                <img src="{% static 'img/default-person.png' %}" class="rounded" style="width:40px;">
+                            <img src="{% static 'img/default-person.png' %}" class="rounded" style="width:40px;">
                             {% endif %}
                         </td>
                         <td>{{ p.first_name }} {{ p.last_name }}</td>
@@ -70,7 +72,9 @@
                         <td>{{ p.birth_date }}</td>
                         <td>{% if p.is_living %}Yes{% else %}No{% endif %}</td>
                         <td>
-                            <a href="{% url 'persons:person_detail' family.id p.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                           <a href="{% url 'families:persons:person_detail' family_id=family.id person_id=p.id %}" class="btn btn-sm btn-outline-primary">View</a>
+
+                            <!-- <script>console.log(family.id);</script> -->
                         </td>
                     </tr>
                     {% empty %}
@@ -89,10 +93,12 @@
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&{{ request.GET.urlencode }}">Previous</a>
+                <a class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}&{{ request.GET.urlencode }}">Previous</a>
             </li>
             {% endif %}
-            <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+            <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{
+                    page_obj.paginator.num_pages }}</span></li>
             {% if page_obj.has_next %}
             <li class="page-item">
                 <a class="page-link" href="?page={{ page_obj.next_page_number }}&{{ request.GET.urlencode }}">Next</a>

@@ -10,5 +10,5 @@ urlpatterns = [
     path("add/", PersonCreateView.as_view(), name="person_add"),
     path("<int:person_id>/", PersonDetailView.as_view(), name="person_detail"),
     path("<int:person_id>/edit/", PersonUpdateView.as_view(), name="person_edit"),
-    path("<int:person_id>/delete/", PersonDeleteView.as_view(), name="person_delete"),
+    path("<int:person_id>/delete/", PersonDeleteView.as_view(), name="person_delete")
 ]

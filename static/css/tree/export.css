@@ -1,0 +1,12 @@
+.export-mode {
+    background: white;
+}
+
+.export-mode text {
+    fill: black !important;
+    font-size: 12px;
+}
+
+.export-mode image {
+    filter: grayscale(100%);
+}

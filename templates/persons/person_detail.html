@@ -13,7 +13,8 @@
             <div class="mb-3">
 
              <div>
-                <a href="{% url 'persons:person_edit' pk=family.id person_id=person.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'families:persons:person_edit' family_id=family.id person_id=person.id %}" class="btn btn-warning">Edit</a>
+
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
         Delete
     </button>
@@ -32,8 +33,8 @@
       </div>
       <div class="modal-footer">
         <!-- Form to submit deletion -->
-        <form method="post" action="{% url 'persons:person_delete' pk=family.id person_id=person.id %}">
-            {% csrf_token %}
+       <form method="post" action="{% url 'families:persons:person_delete' family_id=family.id person_id=person.id %}">
+           {% csrf_token %}
             <button type="submit" class="btn btn-danger">Yes, delete</button>
         </form>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

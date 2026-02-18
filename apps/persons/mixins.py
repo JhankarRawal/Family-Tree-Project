@@ -8,7 +8,7 @@ class FamilyPermissionMixin:
     allowed_roles = []  # Define in views
 
     def dispatch(self, request, *args, **kwargs):
-        family_id = kwargs.get("pk")
+        family_id = kwargs.get("family_id")
         self.family = get_object_or_404(Family, pk=family_id)
 
         membership = self.family.memberships.filter(user=request.user).first()

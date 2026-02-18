@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accounts/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+
+        <!-- ================= Sidebar ================= -->
+        <div class="col-md-3">
+            <div class="card text-center p-3 shadow-sm">
+
+                {% if profile.profile_photo %}
+                    <img src="{{ profile.profile_photo.url }}"
+                         class="img-fluid rounded-circle mb-3"
+                         style="max-width: 180px;"
+                         alt="Profile Picture">
+                {% else %}
+                    <img src="{% static 'images/profile.png' %}"
+                         class="img-fluid rounded-circle mb-3"
+                         style="max-width: 180px;"
+                         alt="Default Profile">
+                {% endif %}
+
+                <h5>@{{ user.username }}</h5>
+
+                <a href="{% url 'accounts:logout' %}" class="btn btn-danger mt-3">
+                    Sign Out
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- ================= User Details ================= -->
+        <div class="col-md-4">
+            <div class="card p-4 shadow-sm">
+                <h3 class="mb-3">Your Details</h3>
+
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Phone:</strong> {{ profile.phone_number }}</p>
+                <p><strong>Address:</strong> {{ profile.address|default:"-" }}</p>
+
+                <!-- Update Button -->
+                <button class="btn btn-warning mt-3" onclick="toggleForm()">
+                    Update Details
+                </button>
+            </div>
+        </div>
+
+
+        <!-- ================= Update Form ================= -->
+        <div class="col-md-5">
+            <div class="card p-4 shadow-sm" id="updateForm" style="display: none;">
+                <h3 class="mb-3">Update Details</h3>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {{ user_form.as_p }}
+                    {{ profile_form.as_p }}
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+function toggleForm() {
+    const form = document.getElementById("updateForm");
+    if (form.style.display === "none") {
+        form.style.display = "block";
+        form.scrollIntoView({ behavior: "smooth" });
+    } else {
+        form.style.display = "none";
+    }
+}
+</script>
+{% endblock %}
+
+
+{% block footer-js %}
+
+{% if messages %}
+{% for message in messages %}
+<script>
+    alertify.set('notifier', 'position', 'top-center');
+    alertify.success('{{ message }}');
+</script>
+{% endfor %}
+{% endif %}
+
+{% endblock footer-js %}

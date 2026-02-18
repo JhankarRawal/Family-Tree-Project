@@ -1,52 +1,137 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% block content %}
 <div class="container mt-4">
-    <h3>📜 Activity Log - {{ family.name }}</h3>
-{% if log.family %}
-<a href="{% url 'dashboard:dashboard' log.family.id %}" class="btn btn-secondary btn-sm">
-    ⬅ Back to Dashboard
-</a>
-{% else %}
-<a href="{% url 'dashboard:dashboard' request.user.family_memberships.first.family.id %}" class="btn btn-secondary btn-sm">
-    ⬅ Back to Dashboard
-</a>
-{% endif %}
-    <div class="card shadow-sm">
-        <div class="card-body p-0">
-            <table class="table table-striped table-hover mb-0">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Time</th>
-                        <th>User</th>
-                        <th>Action</th>
-                        <th>Target</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for log in logs %}
-                    <tr>
-                        <td>{{ log.timestamp|date:"Y-m-d H:i" }}</td>
-                        <td>{{ log.user }}</td>
-                        <td>
-                            <span class="badge bg-info">{{ log.action_type }}</span>
-                        </td>
-                        <td>{{ log.target_type }} (ID {{ log.target_id }})</td>
-                        <td>{{ log.description }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center text-muted p-4">
-                            No activity recorded yet.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+
+  <div class="d-flex justify-content-between mb-3">
+    <h4>Activity Log – {{ family.name }}</h4>
+    <a href="{% url 'dashboard:family_dashboard' family.id %}"
+       class="btn btn-sm btn-outline-secondary">
+      ← Back to Dashboard
+    </a>
+  </div>
+
+  <!-- Filters -->
+  <form method="get" class="card p-3 mb-3">
+    <div class="row g-2">
+
+      <div class="col-md-2">
+        <select name="action_type" class="form-select">
+          <option value="">All Actions</option>
+          <option value="create" {% if filters.action_type == "create" %}selected{% endif %}>Create</option>
+          <option value="update" {% if filters.action_type == "update" %}selected{% endif %}>Update</option>
+          <option value="delete" {% if filters.action_type == "delete" %}selected{% endif %}>Delete</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <select name="target_type" class="form-select">
+          <option value="">All Targets</option>
+          <option value="person" {% if filters.target_type == "person" %}selected{% endif %}>Person</option>
+          <option value="relationship" {% if filters.target_type == "relationship" %}selected{% endif %}>Relationship</option>
+          <option value="member" {% if filters.target_type == "member" %}selected{% endif %}>Member</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <select name="user" class="form-select">
+          <option value="">All Users</option>
+          {% for u in users %}
+            <option value="{{ u.user__id }}"
+              {% if filters.user == u.user__id|stringformat:"s" %}selected{% endif %}>
+              {{ u.user__username }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <input type="date" name="date_from" class="form-control"
+               value="{{ filters.date_from }}">
+      </div>
+
+      <div class="col-md-2">
+        <input type="date" name="date_to" class="form-control"
+               value="{{ filters.date_to }}">
+      </div>
+
+      <div class="col-md-2 d-flex gap-2">
+        <button class="btn btn-primary w-100">Filter</button>
+        <a href="{% url 'activitylog:logs' family.id %}"
+           class="btn btn-outline-secondary w-100">
+          Reset
+        </a>
+      </div>
+
     </div>
+  </form>
+
+  <!-- Activity List -->
+  <div class="card">
+    <ul class="list-group list-group-flush">
+      {% for log in activities %}
+        <li class="list-group-item d-flex justify-content-between">
+          <div>
+            <strong>{{ log.user.username|default:"System" }}</strong>
+
+            <span class="badge
+              {% if log.action_type == 'create' %}bg-success
+              {% elif log.action_type == 'update' %}bg-warning
+              {% elif log.action_type == 'delete' %}bg-danger
+              {% endif %}
+            ">
+              {{ log.action_type }}
+            </span>
+
+            {{ log.target_type }}
+
+            <div class="text-muted small">
+              {{ log.description }}
+            </div>
+          </div>
+
+          <small class="text-muted">
+            {{ log.timestamp|timesince }} ago
+          </small>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">
+          No activity found.
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Pagination -->
+  {% if is_paginated %}
+  <nav class="mt-3">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link"
+             href="?page={{ page_obj.previous_page_number }}&{{ request.GET.urlencode }}">
+            Previous
+          </a>
+        </li>
+      {% endif %}
+
+      <li class="page-item active">
+        <span class="page-link">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+      </li>
+
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link"
+             href="?page={{ page_obj.next_page_number }}&{{ request.GET.urlencode }}">
+            Next
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
 
 </div>
-
 {% endblock %}

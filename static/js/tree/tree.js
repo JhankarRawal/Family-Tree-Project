@@ -1,78 +1,89 @@
-// Get canvas and context
-const canvas = document.getElementById("treeCanvas");
-const context = canvas.getContext("2d");
+// Select SVG container
+const svg = d3.select("#familyTreeSvg");
+const g = svg.append("g");
 
-// Zoom behavior
-const zoom = d3.zoom()
-  .scaleExtent([0.2, 2])
-  .on("zoom", (event) => draw(event.transform));
+// Zoom and pan
+svg.call(
+    d3.zoom()
+        .scaleExtent([0.2, 3])
+        .on("zoom", (event) => {
+            g.attr("transform", event.transform);
+        })
+);
 
-d3.select(canvas).call(zoom);
+let rootData;
 
-let treeData;
+// These will be passed from Django template
 
-// Fetch tree data from Django API
+
+// Fetch tree from API
 function fetchTree(showDeceased = true) {
-  const apiUrl = `/families/${FAMILY_ID}/tree/api/${ROOT_ID}/?show_deceased=${showDeceased}`;
+    const apiUrl = `/families/${FAMILY_ID}/tree/api/${ROOT_ID}/?show_deceased=${showDeceased}`;
 
-  fetch(apiUrl)
-    .then(res => {
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-      return res.json();
-    })
-    .then(data => {
-      treeData = d3.hierarchy(data);
-      draw(d3.zoomIdentity);  // initial draw with identity transform
-    })
-    .catch(err => console.error("Error fetching tree data:", err));
+    fetch(apiUrl)
+        .then((res) => {
+            if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+            return res.json();
+        })
+        .then((data) => {
+            rootData = d3.hierarchy(data);
+            renderTree(rootData);
+        })
+        .catch((err) => console.error("Error fetching tree:", err));
 }
 
-// Draw tree on canvas
-function draw(transform) {
-  if (!treeData) return;
+// Render tree
+function renderTree(root) {
+    // Clear previous nodes and links
+    g.selectAll("*").remove();
 
-  context.save();
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.translate(transform.x, transform.y);
-  context.scale(transform.k, transform.k);
+    const treeLayout = d3.tree().nodeSize([150, 180]); // Adjust spacing if needed
+    treeLayout(root);
 
-  // Create tree layout
-  const treeLayout = d3.tree().nodeSize([80, 180]);
-  treeLayout(treeData);
+    // Draw links
+    g.selectAll("line.link")
+        .data(root.links())
+        .enter()
+        .append("line")
+        .classed("link", true)
+        .attr("x1", (d) => d.source.x)
+        .attr("y1", (d) => d.source.y)
+        .attr("x2", (d) => d.target.x)
+        .attr("y2", (d) => d.target.y)
+        .attr("stroke", "#999")
+        .attr("stroke-width", 2);
 
-  // Draw links
-  treeData.links().forEach(link => {
-    context.beginPath();
-    context.moveTo(link.source.x, link.source.y);
-    context.lineTo(link.target.x, link.target.y);
-    context.strokeStyle = "#999";
-    context.lineWidth = 2;
-    context.stroke();
-  });
+    // Draw nodes
+    const node = g.selectAll("g.node")
+        .data(root.descendants())
+        .enter()
+        .append("g")
+        .classed("node", true)
+        .attr("transform", (d) => `translate(${d.x},${d.y})`);
 
-  // Draw nodes
-  treeData.descendants().forEach(d => {
-    context.beginPath();
-    context.fillStyle = d.data.gender === "male" ? "#4A90E2" :
-                        d.data.gender === "female" ? "#E91E63" :
-                        "#9E9E9E";  // unknown or other
-    context.arc(d.x, d.y, 14, 0, 2 * Math.PI);
-    context.fill();
+    // Circle for each person
+    node.append("circle")
+        .attr("r", 25)
+        .attr("fill", (d) =>
+            d.data.gender === "male" ? "#60a5fa" :
+            d.data.gender === "female" ? "#f87171" :
+            "#9e9e9e"
+        )
+        .attr("stroke", "#333")
+        .attr("stroke-width", 2);
 
-    // Add label
-    context.fillStyle = "#000";
-    context.font = "12px sans-serif";
-    context.textAlign = "center";
-    context.fillText(d.data.name, d.x, d.y - 20);
-  });
-
-  context.restore();
+    // Name label
+    node.append("text")
+        .attr("y", -35)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "14px")
+        .text((d) => d.data.name);
 }
 
-// Toggle deceased members
-document.getElementById("toggleDeceased").addEventListener("change", e => {
-  fetchTree(e.target.checked);
+// Toggle deceased checkbox
+document.getElementById("toggleDeceased").addEventListener("change", (e) => {
+    fetchTree(e.target.checked);
 });
 
-// Fetch initial tree
+// Initial render
 fetchTree();

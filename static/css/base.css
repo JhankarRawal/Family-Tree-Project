@@ -1,0 +1,8 @@
+header{
+    height: 60px;
+    padding: 100px;
+}
+
+#sidebarMenu{
+    position: fixed;
+}

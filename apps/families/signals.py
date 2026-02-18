@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import JoinRequest, Invitation
+from .models import JoinRequest, InvitatioN
 
 @receiver(post_save, sender=JoinRequest)
 def notify_admins_on_join_request(sender, instance, created, **kwargs):
@@ -25,7 +25,7 @@ def notify_admins_on_join_request(sender, instance, created, **kwargs):
     html = render_to_string('families/emails/join_request.html', context)
     send_mail(subject, text, settings.DEFAULT_FROM_EMAIL, recipients, html_message=html, fail_silently=True)
 
-@receiver(post_save, sender=Invitation)
+@receiver(post_save, sender=InvitatioN)
 def notify_invited_user(sender, instance, created, **kwargs):
     """
     Optionally send a follow-up email when an Invitation is created.

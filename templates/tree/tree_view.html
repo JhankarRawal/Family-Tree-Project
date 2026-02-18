@@ -2,22 +2,41 @@
 {% load static %}
 
 {% block content %}
-<h2 class="mb-3 ms-4 ml-8">Family Tree</h2>
+<h2 class="mb-3 ms-4">Family Tree</h2>
 
-<div class="controls mb-2 ms-4">
+<div class="controls mb-2 ms-4 d-flex gap-3">
     <label>
         <input type="checkbox" id="toggleDeceased" checked>
         Show deceased
     </label>
+
+    <button class="btn btn-sm btn-primary" onclick="exportTreePDF()">
+        Export PDF
+    </button>
+
+    <button class="btn btn-sm btn-secondary" onclick="exportGEDCOM()">
+        Export GEDCOM
+    </button>
 </div>
 
-<canvas id="treeCanvas" width="800" height="800"></canvas>
+<!-- SVG container -->
+<div id="tree-wrapper" style="overflow:auto; border:1px solid #ccc;">
+    <svg id="familyTreeSvg" width="800" height="800"></svg>
+</div>
 
 <script>
     const FAMILY_ID = "{{ family_id }}";
     const ROOT_ID = "{{ root_person.id }}";
 </script>
 
+<!-- Libraries -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Your JS -->
 <script src="{% static 'js/tree/tree.js' %}"></script>
+<script src="{% static 'js/export/export_pdf.js' %}"></script>
+<script src="{% static 'js/export/export_gedcom.js' %}"></script>
+
 {% endblock %}

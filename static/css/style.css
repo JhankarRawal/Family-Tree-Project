@@ -1,121 +1,129 @@
-/* static/css/style.css */
-
-/* Color palette */
-:root {
-  --navy: #2C3E50;
-  --brown: #8B7355;
-  --gold: #D4AF37;
-  --cream: #FAF9F6;
-  --text-dark: #333333;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Base body */
-body.bg-cream, .bg-cream {
-  background-color: var(--cream) !important;
-  color: var(--text-dark);
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+body,
+html {
+  background: linear-gradient(to right, #939b8f 0%, #616F39 100%);
+  margin: 0;
+  padding: 0;
+  color: #000;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Heading serif */
-.heading-serif {
-  font-family: "Georgia", "Times New Roman", serif;
-  color: var(--navy);
+.hero-section {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 60px 20px;
+  margin: 0;
 }
 
-/* Navbar custom */
-.navbar.bg-primary {
-  background-color: var(--navy) !important;
-}
-.brand-title {
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  color: #fff;
+.hero-container {
+  background-color: transparent;
+  max-width: 100% !important;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-/* Buttons */
-.btn-gold {
-  background-color: var(--gold);
-  color: #222;
+.navbar {
+  background-color: transparent !important;
+  z-index: 1030;
+  color: #ffffff;
+  box-shadow: none;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: linear-gradient(to right, #e4e4e1 0%, #FFD98E 100%) !important;
+}
+
+.navbar.scrolled .nav-link {
+  color: #FF8364;
+}
+
+.navbar .nav-link {
+  position: relative;
+  color: #FF8364;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #FF8364;
+  transition: width 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar .nav-link:hover {
+  color: #FF8364;
+}
+
+.navbar-brand img {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.navbar.scrolled .navbar-brand img {
+  filter: none;
+}
+
+.card-body {
+  background-color: #FFB677;
+}
+
+.card {
+  background: #FFD98E !important;
+  border: gold;
+}
+
+.btn {
+  background-color: #2d3436;
+  color: white;
   border: none;
+
 }
-.btn-outline-gold {
-  border: 1px solid var(--gold);
-  color: var(--navy);
+
+/* Space for fixed navbar */
+.app-wrapper {
+  display: flex;
+  margin-top: 120px;
+  /* must match navbar height */
+  min-height: calc(100vh - 120px);
 }
 
 /* Sidebar */
 .sidebar {
-    width: 240px;          /* set fixed width */
-    min-height: 100vh;
-    position: fixed;
-    top: 84px;             /* same height as navbar */
-    left: 0;
-    background: #f8f9fa;
-    padding: 20px;
-    overflow-y: auto;
-    border-right: 1px solid #ddd;
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--navbar-height));
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
 }
 
-/* Sidebar links */
-.sidebar .nav-link {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+main {
+  position: absolute;
+  top: var(--navbar-height);
+  left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+  height: calc(100vh - var(--navbar-height));
+  overflow-y: auto;
+  padding: 1.5rem;
 }
 
-/* Remove hover hiding */
-.sidebar .nav-link:hover {
-  color: #FFD700;       /* change color on hover, optional */
-  background-color: #222; /* optional hover background */
+/* Content */
+.content {
+  flex: 1;
+  padding: 2rem;
+  background: #fff;
 }
-
-/* Sidebar heading */
-.sidebar .sidebar-heading {
-  font-weight: 700;
-  color: #FFD700; /* gold heading */
-}
-
-@media (max-width: 767.98px) {
-    .sidebar {
-        position: relative;
-        width: 100%;
-        top: 0;
-        min-height: auto;
-        border-right: none;
-        padding: 0.5rem;
-        background-color: #1e1e1e; /* keep dark on mobile too */
-    }
-}
-/* Cards */
-.card {
-  border-radius: 0.8rem;
-}
-.feature-card {
-  border-left: 6px solid var(--brown);
-}
-
-/* Hero */
-.hero {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-}
-.tree-hero-card {
-  border: 1px solid rgba(0,0,0,0.04);
-}
-
-/* Footer */
-.footer {
-  background: white;
-  border-top: 1px solid #eee;
-}
-
-/* Small screens adjustments */
-@media (max-width: 767.98px) {
-  .sidebar { display: none; }
-  .brand-title { font-size: 1rem; }
-}
-
-/* Utility */
-.text-muted { color: #6c757d !important; }

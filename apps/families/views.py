@@ -8,7 +8,7 @@ from django.conf import settings
 
 from apps.activitylog.utils import log_activity
 from apps.persons.models import Person
-from .models import Family, FamilyMembership, Invitation, JoinRequest
+from .models import Family, FamilyMembership, InvitatioN, JoinRequest
 from .forms import FamilyForm, JoinByCodeForm, InvitationForm
 from .utils import generate_family_code
 from django.utils import timezone
@@ -125,12 +125,12 @@ class ApproveJoinRequestView(LoginRequiredMixin, TemplateView):
             jr.processed_at = timezone.now()
             jr.save()
             log_activity(
-                family=JoinRequest.family,
+                family=jr.family,
                 user=request.user,
                 action_type="approve",
                 target_type="join_request",
-                target_id=JoinRequest.id,
-                description=f"Approved join request from {JoinRequest.user.get_full_name() or JoinRequest.user.username}"
+                target_id=jr.id,
+                description=f"Approved join request from {jr.user.get_full_name() or jr.user.username}"
                 )
 
             # Add user as member
@@ -171,12 +171,12 @@ class RejectJoinRequestView(LoginRequiredMixin, TemplateView):
         jr.processed_at = timezone.now()
         jr.save()
         log_activity(
-        family=JoinRequest.family,
+        family=jr.family,
         user=request.user,
         action_type="reject",
         target_type="join_request",
-        target_id=JoinRequest.id,
-        description=f"Rejected join request from {JoinRequest.user.get_full_name() or JoinRequest.user.username}"
+        target_id=jr.id,
+        description=f"Rejected join request from {jr.user.get_full_name() or jr.user.username}"
     )
 
         # Notify user
@@ -289,20 +289,24 @@ def invite_member(request, pk):
     if request.method == 'POST':
         form = InvitationForm(request.POST)
         if form.is_valid():
+            print("FORM VALID")
             invitation = form.save(commit=False)
             invitation.family = family
             invitation.sender = request.user
             # generate a unique token
             invitation.token = get_random_string(64)
             invitation.save()
-            # Optional: send email
+            # Optional: send email          
             send_mail(
                 subject=f"Invitation to join {family.name}",
                 message=f"You have been invited to join the family {family.name}. Use this token: {invitation.token}\n\nMessage: {invitation.message}",
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[invitation.recipient_email],
-                fail_silently=True
+                fail_silently=False
             )
+        else:
+            print("FORM ERRORS:", form.errors)
+
             
             messages.success(request, "Invitation sent successfully!")
             return redirect('families:members', pk=family.pk)
@@ -314,7 +318,7 @@ def invite_member(request, pk):
 class AcceptInviteView(FormView):
     def get(self, request):
         token = request.GET.get('token')
-        invitation = get_object_or_404(Invitation, token=token)
+        invitation = get_object_or_404(InvitatioN, token=token)
         # You can handle logic here: mark accepted, add user to family, etc.
         invitation.accepted = True
         invitation.save()

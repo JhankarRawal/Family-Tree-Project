@@ -1,10 +1,14 @@
 from django.urls import path
-from django.http import HttpResponse
+from .views import (
+    SaveVisualPDFView,
+    ExportGEDCOMView,
+    ExportCombinedZIPView,
+)
 
-def export_pdf_list(request): return HttpResponse("Export PDF list")
-
-app_name = 'exports'
+app_name = "exports"
 
 urlpatterns = [
-    path('', export_pdf_list, name='export_pdf_list'),
+    path("<int:family_id>/save-pdf/", SaveVisualPDFView.as_view(), name="save_pdf"),
+    path("<int:family_id>/gedcom/", ExportGEDCOMView.as_view(), name="gedcom"),
+    path("<int:family_id>/zip/", ExportCombinedZIPView.as_view(), name="zip"),
 ]

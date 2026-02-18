@@ -1,0 +1,129 @@
+/* Navbar fixes */
+#nav-bar {
+    position: static !important;
+    top: 0;
+    z-index: 10;
+}
+
+/* Main container flex */
+.main-container {
+    display: flex;
+    border: 4px solid rgb(189, 72, 72);
+}
+
+/* Sidebar content styling */
+.sidebar_content {
+    margin-left: 30%;
+    padding: 1px 16px;
+}
+.Details{
+    margin-left: 6px;
+    padding: 3px;
+}
+/* Active dashboard link styling */
+.active-dashboard {
+    border: 3px solid #000 !important;
+    border-radius: 15%;
+    background-color: #9DC1E3;
+    color: #000 !important;
+}
+
+/* Responsive for small screens */
+@media screen and (max-width: 700px) {
+    .sidebar_content {
+        margin-left: 0;
+    }
+}
+
+/* Sidebar menu */
+.sidenav {
+    width: 190px;
+    /* Set the width of the sidebar */
+    height: 90vh;
+    background-image: radial-gradient(ellipse at left, #185389, #030e17, #214465);
+    padding-top: 20px;
+}
+
+/* Profile image container */
+.image {
+    margin-left: 25%;
+    position: relative;
+    width: 50%;
+    margin-bottom: 50px;
+}
+
+/* Profile image styling */
+.image img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    opacity: 1;
+    display: block;
+    transition: 0.5s ease;
+    backface-visibility: hidden;
+}
+
+/* Sidebar links */
+.sidenav a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 17px;
+    color: #ffffff;
+    display: block;
+    font-weight: 600;
+}
+
+/* Hover effect on links */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Main page content */
+.main {
+    margin-left: 160px;
+    /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+/* Smaller screens adjustments */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+/* Profile details container */
+.details_container {
+    color: white ;
+    background-color: #FFB677 ;
+    border-radius: 4%;
+    box-shadow: 0 0 10px 10px rgba(128, 128, 130, 0.7);
+    padding: 40px;
+    margin: 40px auto;
+}
+
+/* Responsive container */
+@media screen and (max-width: 768px) {
+    .details_container {
+        margin: 10px;
+        padding: 20px;
+    }
+}
+
+/* Profile image in details */
+.detail_image {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+/* Map placeholder */
+#map {
+    height: 400px;
+    width: 100%;
+}

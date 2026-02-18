@@ -1,17 +1,14 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import RegisterForm, LoginForm
 from django.core.mail import send_mail
 from django.conf import settings
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.core.mail import send_mail
-from django.conf import settings
-from .forms import RegisterForm  # make sure this exists
+from django.contrib.auth.decorators import login_required
+from .forms import UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from .models import Profile
 
 def register_view(request):
     if request.method == 'POST':
@@ -55,4 +52,45 @@ def logout_view(request):
     return redirect('accounts:login')
 
 
-def profile_view(request): return HttpResponse("Profile placeholder")
+@login_required
+def profile(request):
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        user_form = UserUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=request.user
+        )
+        profile_form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=profile
+        )
+
+        if user_form.is_valid() and profile_form.is_valid():
+            if user_form.cleaned_data['email'] != request.user.email:
+                request.user.email = user_form.cleaned_data['email']
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('accounts:profile') 
+
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=profile)
+
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'profile': profile,
+    }
+
+    return render(request, 'accounts/profile.html', context)
+
+
+
+# Optional: Password Change View
+class CustomPasswordChangeView(PasswordChangeView):
+    template_name = 'accounts/change_password.html'
+    success_url = reverse_lazy('profile')

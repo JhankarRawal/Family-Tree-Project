@@ -1,201 +1,181 @@
-{# templates/base.html #}
 {% load static %}
+
 <!doctype html>
 <html lang="en">
 
 <head>
-    <!-- Meta -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{% block title %}Family Tree{% endblock %} — Family Tree App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap 5 CSS -->
+    <title>{% block title %}Family Tree{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    {% block extra_head %}{% endblock %}
+    {% block extra_css %}
+    {% endblock %}
 </head>
 
-<body class="bg-cream">
+<body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-                <img src="{% static 'images/logo-small.jpg' %}" alt="logo" class="me-2" style="height:34px;">
-                <span class="brand-title">Family Tree</span>
-            </a>
+    <!-- ===== TOP NAVBAR ===== -->
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow align-items-center">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+            {{ family.name|default:"Family Tree" }}
+        </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav me-auto mb-2 ms-2  mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'families:list' %}">My Families</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'exports:export_pdf_list' %}">Export</a></li>
-                    </li>
+        <input class="form-control form-control-dark mx-3 d-none d-md-block w-50" type="text" placeholder="Search">
 
-                    <li class="nav-item">
+        <!-- User dropdown -->
+        <div class="dropdown ms-auto me-3">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                data-bs-toggle="dropdown">
+                <img src="{% if request.user.profile.profile_photo %}{{ request.user.profile.profile_photo.url }}{% else %}{% static 'images/default_profile.jpg' %}{% endif %}"
+                width="32" height="32" class="rounded-circle me-2" alt="{{ request.user.username }}">
+                <strong>{{ request.user.username }}</strong>
+        </a>
 
-                    </li>
-
-
-                    {% if user.is_authenticated and user.family_memberships.exists %}
-                    {% with family=user.family_memberships.first.family %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'tree_per_family:view' family_id=family.id %}">
-                            View Tree
-                        </a>
-                    </li>
-                    {% endwith %}
-                    {% endif %}
-
-
-                </ul>
-
-                {% if user.is_authenticated %}
-                {% for membership in user.family_memberships.all %}
-                {% with family=membership.family %}
-                <form class="d-flex me-3" method="get" action="{% url 'search:person_search' family.id %}">
-                    <input class="form-control form-control-sm me-2" type="search" name="q"
-                        placeholder="Search in {{ family.name }}..." aria-label="Search">
-                    <button class="btn btn-sm btn-gold" type="submit">Search</button>
-                </form>
-                {% endwith %}
-                {% endfor %}
-                {% endif %}
-
-                <ul class="navbar-nav ms-auto">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-regular fa-user"></i> {{ user.get_full_name|default:user.username }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a></li>
-                            {% for membership in request.user.family_memberships.all %}
-                            <li>
-                                <a class="dropdown-item" href="{% url 'dashboard:dashboard' membership.family.id %}">
-                                    {{ membership.family.name }} Dashboard
-                                </a>
-                            </li>
-                            {% empty %}
-                            <li><span class="dropdown-item text-muted">No families yet</span></li>
-                            {% endfor %}
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <form method="post" action="{% url 'accounts:logout' %}">
-                                    {% csrf_token %}
-                                    <button class="dropdown-item text-danger" type="submit">Logout</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    {% else %}
-                    <li class="nav-item"><a class="nav-link ms-2" href="{% url 'accounts:login' %}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link ms-2" href="{% url 'accounts:register' %}">Register</a></li>
-                    {% endif %}
-                </ul>
-            </div>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <form method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button class="dropdown-item" type="submit">Logout</button>
+                    </form>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </header>
 
-    <!-- PAGE WRAPPER -->
-    <div class="container-fluid" style="padding-top:84px;">
+    <!-- ===== MAIN LAYOUT ===== -->
+    <div class="container-fluid">
         <div class="row">
-            <aside id="siteSidebar" class="col-md-3 col-lg-2 sidebar">
-                <div class="sidebar-sticky pt-3">
-                    <h6 class="sidebar-heading mb-3">Navigation</h6>
+
+            <!-- ===== SIDEBAR ===== -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+
+                    {% if family %}
                     <ul class="nav flex-column">
+
+                        <!-- Dashboard -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'families:list' %}">
-                                <i class="fa-solid fa-house me-1"></i> My Families
+                            <a class="nav-link" href="{% url 'dashboard:family_dashboard' family.id %}">
+                                Dashboard
                             </a>
                         </li>
 
-                        {% for family in families %}
+                        <!-- Members -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'persons:list' pk=family.id %}">
-                                <i class="fa-solid fa-users me-1"></i> {{ family.name }}
+                            <a class="nav-link" href="{% url 'families:members' family.id %}">
+                                Members
                             </a>
                         </li>
-                        {% endfor %}
 
-                        {% if user.is_authenticated %}
-                        {% for membership in user.family_memberships.all %}
-                        {% with family=membership.family %}
+                        <!-- Persons List -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'families:persons:list' family_id=family.id %}
+">
+                                Persons
+                            </a>
+                        </li>
+                        <!-- Family Tree -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'families:tree_per_family:view' family.id %}">
+                                Tree
+                            </a>
+                        </li>
+
+                        <!-- Relationships (can be disabled if no URL available) -->
+                        <li class="nav-item">
+                            <a class="nav-link disabled">
+                                Relationships
+                            </a>
+                        </li>
+
+                        <!-- Search -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'search:person_search' family.id %}">
-                                Search in {{ family.name }}
+                                Search
                             </a>
+                        </li>
+
+                        <!-- Export -->
+                        <li class="nav-item">
+                            <a class="nav-link disabled">Export</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link" href="{% url 'exports:gedcom' family.id %}">GEDCOM</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link" href="{% url 'exports:save_pdf' family.id %}">PDF</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link" href="{% url 'exports:zip' family.id %}">ZIP</a>
+                        </li>
+
+                        <!-- Activity Logs -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'activitylog:logs' family.id %}">
+                                Activity Logs
+                            </a>
+                        </li>
+
+                    </ul>
+                    {% else %}
+                    <!-- Generic sidebar for pages without a family -->
+                    <ul class="nav flex-column">
+                        {% with fm=request.user.family_memberships.first %}
+                        <li class="nav-item">
+                            {% if fm %}
+                            <a class="nav-link" href="{% url 'dashboard:family_dashboard' fm.family.id %}">
+                                Dashboard
+                            </a>
+                            {% else %}
+                            <a class="nav-link" href="{% url 'families:create' %}">
+                                Join a Family
+                            </a>
+                            {% endif %}
                         </li>
                         {% endwith %}
-                        {% endfor %}
-                        {% endif %}
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'exports:export_pdf_list' %}">
-                                <i class="fa-solid fa-file-export me-1"></i> Export
-                            </a>
-                        </li>
                     </ul>
-                </div>
-            </aside>
+                    {% endif %}
 
-            <!-- MAIN CONTENT -->
-            <main class="col-md-9 col-lg-10 ms-auto px-4">
-                <!-- Breadcrumbs -->
-                <nav aria-label="breadcrumb" class="mt-3">
-                    {% block breadcrumbs %}
-                    <ol class="breadcrumb">
-                    </ol>
-                    {% endblock %}
-                </nav>
-
-                <!-- Messages -->
-                {% if messages %}
-                <div class="mt-2">
-                    {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    {% endfor %}
                 </div>
-                {% endif %}
+            </nav>
 
-                <!-- Page-specific content -->
-                <div class="py-3">
-                    {% block content %}{% endblock %}
-                </div>
+            <!-- ===== PAGE CONTENT ===== -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                {% block content %}{% endblock %}
             </main>
+
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer mt-auto py-3 bg-light small">
-        <div class="container">
-            <div class="d-flex justify-content-between">
-                <span class="text-muted">© {{ now|date:"Y" }} Family Tree</span>
-                <span class="text-muted">Made with ❤️ • <a href="/privacy/">Privacy</a></span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS (Popper included) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     {% block extra_js %}{% endblock %}
+
 </body>
 
 </html>

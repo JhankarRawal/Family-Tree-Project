@@ -32,29 +32,16 @@ class FamilyMembership(models.Model):
     user = models.ForeignKey(User, related_name='family_memberships', on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='member')
     joined_at = models.DateTimeField(default=timezone.now)
+    class Meta:
+        unique_together = ('family', 'user')
 
-
-class Meta:
-    unique_together = ('family', 'user')
-
-
-def __str__(self):
-    return f"{self.user} in {self.family} as {self.role}"
-class Invitation(models.Model):
-    """
-    Represents an invitation sent by a family admin/owner to a user to join a family.
-    """
+    def __str__(self):
+        return f"{self.user} in {self.family} as {self.role}"
+    
+class InvitatioN(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    family = models.ForeignKey(
-        'Family', 
-        on_delete=models.CASCADE, 
-        related_name='invitations'
-    )
-    sender = models.ForeignKey(
-        settings.AUTH_USER_MODEL, 
-        on_delete=models.CASCADE, 
-        related_name='sent_invitations'
-    )
+    family = models.ForeignKey(Family, on_delete=models.CASCADE, related_name='invitations')
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='sent_invitations')
     recipient_email = models.EmailField()
     token = models.CharField(max_length=64, unique=True)
     message = models.TextField(blank=True, null=True)
@@ -91,11 +78,11 @@ class JoinRequest(models.Model):
     status = models.CharField(max_length=10,choices=STATUS_CHOICES,default=PENDING)    
     processed_by = models.ForeignKey(User, related_name='processed_join_requests', null=True, blank=True, on_delete=models.SET_NULL)
     processed_at = models.DateTimeField(null=True, blank=True)
-class Meta:
-    unique_together = ('family', 'user')
-    ordering = ['-created_at']
-def __str__(self):
-        return f"JoinRequest: {self.user.get_username()} -> {self.family.name} ({self.status})"
+    class Meta:
+        unique_together = ('family', 'user')
+        ordering = ['-created_at']
+    def __str__(self):
+            return f"JoinRequest: {self.user.get_username()} -> {self.family.name} ({self.status})"
 
 
 

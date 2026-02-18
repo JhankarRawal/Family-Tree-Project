@@ -1,5 +1,5 @@
 from django import forms
-from .models import Family, JoinRequest , Invitation
+from .models import Family, JoinRequest , InvitatioN
 
 
 class FamilyForm(forms.ModelForm):
@@ -23,7 +23,7 @@ class JoinByCodeForm(forms.Form):
 
 class InvitationForm(forms.ModelForm):
     class Meta:
-        model = Invitation
+        model = InvitatioN
         fields = ['recipient_email', 'message']
         widgets = {
             'message': forms.Textarea(attrs={'rows': 3}),

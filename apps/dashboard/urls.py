@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import UserDashboardView
+from .views import  FamilyDashboardView
 
 app_name = "dashboard"
 
 urlpatterns = [
-    path('<int:family_id>/', UserDashboardView.as_view(), name='dashboard'),
+    path('<int:family_id>/',  FamilyDashboardView.as_view(), name='family_dashboard'),
 ]

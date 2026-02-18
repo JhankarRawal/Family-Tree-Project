@@ -1,31 +1,129 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block title %}
+{{ family.name|default:"Family Tree" }} Dashboard
+{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'style.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<div class="container mt-4">
-    <h2>Welcome, {{ user.get_full_name|default:user.username }}</h2>
 
-    <h3>Your Families</h3>
-    <div class="row">
-        {% for family in families %}
-        <div class="col-md-6 mb-4">
-            <div class="card border-primary">
-                <div class="card-header bg-primary text-white">{{ family.name }}</div>
-                <div class="card-body">
-                    <p><strong>Members:</strong> {{ family.memberships.count }}</p>
-                    <p><strong>Description:</strong> {{ family.description|default:"-" }}</p>
-                    <canvas id="chart-{{ family.id }}"></canvas>
-                    <a href="{% url 'families:detail' pk=family.id %}" class="btn btn-primary mt-2">Manage Family</a>
-
-                    <!-- Activity Logs button for this family -->
-                    <a href="{% url 'activitylog:logs' family_id=family.id %}" class="btn btn-secondary mt-2">
-                        View Logs
-                    </a>
-                </div>
-            </div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ family.name }} Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
         </div>
-        {% empty %}
-        <p>You are not part of any families yet.</p>
-        {% endfor %}
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+        </button>
     </div>
 </div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 stat-card">Total<br>
+        <h3>{{ total_members }}</h3>
+    </div>
+    <div class="col-md-3 stat-card">Living<br>
+        <h3>{{ living_count }}</h3>
+    </div>
+    <div class="col-md-3 stat-card">Deceased<br>
+        <h3>{{ deceased_count }}</h3>
+    </div>
+</div>
+
+<!-- Gender Chart -->
+<div class="col-md-6 card p-3 mb-4">
+    <h5>Gender Distribution</h5>
+    <div class="chart-wrapper">
+        <canvas id="genderChart"></canvas>
+    </div>
+</div>
+
+<!-- Recent Additions -->
+<div class="card p-3 mb-4">
+    <h5>Recent Additions</h5>
+    <ul>
+        {% for p in recent_additions %}
+        <li>{{ p.first_name }} {{ p.last_name }}</li>
+        {% empty %}
+        <li>No recent members</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Recent Activity -->
+<div class="card p-3 mb-4">
+    <h5>Recent Activity</h5>
+    <ul class="list-group list-group-flush">
+        {% for log in recent_activities %}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+                <strong>{{ log.user.username|default:"System" }}</strong>
+
+                <span class="badge
+                  {% if log.action_type == 'create' %}bg-success
+                  {% elif log.action_type == 'update' %}bg-warning
+                  {% elif log.action_type == 'delete' %}bg-danger
+                  {% else %}bg-secondary{% endif %}">
+                    {{ log.action_type }}
+                </span>
+
+                <span class="ms-1">
+                    {{ log.target_type }}
+                </span>
+
+                <div class="text-muted small">
+                    {{ log.description }}
+                </div>
+            </div>
+
+            <small class="text-muted">
+                {{ log.timestamp|timesince }} ago
+            </small>
+        </li>
+        {% empty %}
+        <li class="list-group-item text-muted">
+            No recent activity
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'activitylog:logs' family.id %}" class="small text-decoration-none">
+        View all activities →
+    </a>
+</div>
+
+<!-- Top Surnames -->
+<div class="card p-3 mb-4">
+    <h5>Top Surnames</h5>
+    <ul>
+        {% for s in common_surnames %}
+        <li>{{ s.last_name }} ({{ s.count }})</li>
+        {% empty %}
+        <li>No data</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboard/Chart.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const genderLabels = JSON.parse('{{ gender_labels|escapejs }}');
+        const genderCounts = JSON.parse('{{ gender_counts|escapejs }}');
+
+        renderGenderChart(genderLabels, genderCounts);
+    });
+</script>
 {% endblock %}

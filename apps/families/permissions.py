@@ -3,7 +3,7 @@ from django.http import HttpResponseForbidden
 from .models import FamilyMember
 
 def family_role_required(min_role='viewer'):
-    role_hierarchy = ['viewer', 'editor', 'admin', 'owner']
+    role_hierarchy = ['viewer', 'member', 'admin', 'owner']
     def decorator(view_func):
         def _wrapped_view(request, family_id, *args, **kwargs):
             member = get_object_or_404(FamilyMember, family_id=family_id, user=request.user)

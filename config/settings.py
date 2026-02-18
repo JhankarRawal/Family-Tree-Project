@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET KEY
 SECRET_KEY = config("SECRET_KEY")
 
+
 # DEBUG
 DEBUG = config("DEBUG", default=True, cast=bool)
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'apps.exports',
     'apps.activitylog',
     'apps.tree',
+    "django_extensions",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -141,5 +143,8 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 # SECURITY
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
+
+
+
 
 

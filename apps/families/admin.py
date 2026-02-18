@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Family, FamilyMembership, JoinRequest, Invitation
+from .models import Family, FamilyMembership, JoinRequest, InvitatioN
 
 @admin.register(Family)
 class FamilyAdmin(admin.ModelAdmin):
@@ -16,7 +16,7 @@ class JoinRequestAdmin(admin.ModelAdmin):
     list_display = ('family', 'user', 'created_at', 'status')
     list_filter = ('status',)
 
-@admin.register(Invitation)
+@admin.register(InvitatioN)
 class InvitationAdmin(admin.ModelAdmin):
     list_display = ['id', 'recipient_email', 'sender', 'accepted', 'created_at']
     search_fields = ('email', )
