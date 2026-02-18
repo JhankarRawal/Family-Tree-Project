@@ -4,7 +4,7 @@
 {% block content %}
 <h2 class="mb-3 ms-4">Family Tree</h2>
 
-<div class="controls mb-2 ms-4 d-flex gap-3">
+<div class="controls mb-2 ms-4 d-flex gap-3 align-items-center">
     <label>
         <input type="checkbox" id="toggleDeceased" checked>
         Show deceased
@@ -19,23 +19,35 @@
     </button>
 </div>
 
-<!-- SVG container -->
-<div id="tree-wrapper" style="overflow:auto; border:1px solid #ccc;">
-    <svg id="familyTreeSvg" width="800" height="800"></svg>
+<!-- Cytoscape container -->
+<div id="familyTreeContainer" 
+     style="width:100%; height:80vh; border:1px solid #ccc; overflow:auto;"></div>
+
+<!-- Node details panel -->
+<div id="nodeDetails" 
+     style="position:absolute; top:20px; right:20px; background:#fff; border:1px solid #ccc;
+            padding:10px; width:200px; font-size:14px; display:none; z-index:1000;">
+    <img id="detailPhoto" src="" style="width:100%; height:auto; margin-bottom:10px;">
+    <p><strong>Name:</strong> <span id="detailName"></span></p>
+    <p><strong>Gender:</strong> <span id="detailGender"></span></p>
+    <p><strong>Status:</strong> <span id="detailLiving"></span></p>
 </div>
 
+<!-- Pass Django context to JS -->
 <script>
-    const FAMILY_ID = "{{ family_id }}";
-    const ROOT_ID = "{{ root_person.id }}";
+    window.FAMILY_ID = "{{ family_id }}";
+    window.ROOT_ID = "{{ root_person.id }}";
 </script>
 
 <!-- Libraries -->
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://unpkg.com/cytoscape@3.27.2/dist/cytoscape.min.js"></script>
+<script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+<script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
 
-<!-- Your JS -->
+<!-- Tree logic -->
 <script src="{% static 'js/tree/tree.js' %}"></script>
+
+<!-- Export logic -->
 <script src="{% static 'js/export/export_pdf.js' %}"></script>
 <script src="{% static 'js/export/export_gedcom.js' %}"></script>
 
