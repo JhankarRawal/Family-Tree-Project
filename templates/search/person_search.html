@@ -23,7 +23,7 @@
             <td>{{ member.birth_date }}</td>
             <td>{{ member.gender }}</td>
             <td>
-                <a href="{% url 'persons:person_detail' family.id member.id %}"
+                <a href="{% url 'families:persons:person_detail' family.id member.id %}"
                     class="btn btn-sm btn-outline-primary">View</a>
             </td>
         </tr>

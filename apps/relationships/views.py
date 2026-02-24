@@ -1,7 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.views import View
-
+from core.services.relationship_service import RelationshipEngine
 from apps.activitylog.utils import log_activity
 from apps.families.models import Family
 from apps.persons.models import Person
@@ -188,3 +189,24 @@ class RelationshipDeleteView(View):
 #     pk=family.id,                     # match <int:pk>
 #     person_id=relationship.person.id  # match <int:person_id>
 # )
+
+def relationship_check_page(request, family_id):
+    """
+    Page where user clicks two nodes to check relationship.
+    """
+    persons = Person.objects.filter(family_id=family_id)
+    return render(request, "relationships/relationship_check.html", {
+        "persons": persons,
+        "family_id": family_id
+    })
+
+def relationship_check_api(request, family_id, person_a_id, person_b_id):
+    engine = RelationshipEngine(family_id)
+    engine.build_graph()
+    path = engine.find_relationship(person_a_id, person_b_id)
+    relation = engine.interpret_path(path)
+    return JsonResponse({
+        "person_a": person_a_id,
+        "person_b": person_b_id,
+        "relationship": relation
+    })

@@ -91,9 +91,17 @@
             </span>
 
             <!-- Delete Relationship Button -->
-            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRelModal{{ rel.id }}">
-                Delete
-            </button>
+            {% for membership in request.user.family_memberships.all %}
+                {% if membership.family.id == family.id %}
+                    {% with role=membership.role %}
+                        {% if role == "owner" or role == "admin" or role == "editor" %}
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRelModal{{ rel.id }}">
+                                Delete
+                            </button>
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+            {% endfor %}
 
             <!-- Relationship Delete Modal -->
             <div class="modal fade" id="deleteRelModal{{ rel.id }}" tabindex="-1" aria-hidden="true">
@@ -111,13 +119,13 @@
                         → {{ rel.related_person }}
                     </strong> ?
                   </div>
-                  <div class="modal-footer">
-                    <form method="post" action="{% url 'relationships:delete' family.id rel.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Yes, delete</button>
-                    </form>
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  </div>
+                    <div class="modal-footer">
+                        <form method="post" action="{% url 'relationships:delete' family.id rel.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Yes, delete</button>
+                        </form>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
                 </div>
               </div>
             </div>
@@ -125,6 +133,7 @@
         </li>
     {% empty %}
         <li class="list-group-item">No relationships found.</li>
+
     {% endfor %}
 </ul>
 

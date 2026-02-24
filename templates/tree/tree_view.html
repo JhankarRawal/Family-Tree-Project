@@ -10,6 +10,10 @@
         Show deceased
     </label>
 
+    <button class="btn btn-sm btn-primary" onclick="goToRelationshipCheck()">
+        Check Relationship
+    </button>
+
     <button class="btn btn-sm btn-primary" onclick="exportTreePDF()">
         Export PDF
     </button>
@@ -50,5 +54,12 @@
 <!-- Export logic -->
 <script src="{% static 'js/export/export_pdf.js' %}"></script>
 <script src="{% static 'js/export/export_gedcom.js' %}"></script>
+<script>
+// Redirect to relationship check page
+function goToRelationshipCheck() {
+    // Replace family.id with the Django context variable
+    window.location.href = "{% url 'relationships:relationship_check_page' family_id %}";
+}
+</script>
 
 {% endblock %}
