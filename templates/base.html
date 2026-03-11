@@ -125,15 +125,15 @@
                         <li class="nav-item">
                             <a class="nav-link disabled">Export</a>
                         </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link" href="{% url 'exports:gedcom' family.id %}">GEDCOM</a>
+                      <li class="nav-item ms-3">
+                         <a class="nav-link" href="{% url 'families:exports:gedcom' family.id %}">GEDCOM</a> 
                         </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link" href="{% url 'exports:save_pdf' family.id %}">PDF</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link" href="{% url 'exports:zip' family.id %}">ZIP</a>
-                        </li>
+                      <li class="nav-item ms-3"> 
+                        <a class="nav-link" href="{% url 'families:exports:save_pdf' family.id %}">PDF</a> 
+                    </li> 
+                    <li class="nav-item ms-3"> 
+                        <a class="nav-link" href="{% url 'families:exports:zip' family.id %}">ZIP</a> 
+                    </li>
 
                         <!-- Activity Logs -->
                         <li class="nav-item">
@@ -175,6 +175,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="{% static 'js/export/export_pdf.js' %}"></script>
     {% block extra_js %}{% endblock %}
 
 </body>

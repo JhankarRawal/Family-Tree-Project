@@ -71,6 +71,8 @@
                   {% if log.action_type == 'create' %}bg-success
                   {% elif log.action_type == 'update' %}bg-warning
                   {% elif log.action_type == 'delete' %}bg-danger
+                  {% elif log.action_type == 'export' %}bg-primary
+
                   {% else %}bg-secondary{% endif %}">
                     {{ log.action_type }}
                 </span>

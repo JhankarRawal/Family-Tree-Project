@@ -6,6 +6,9 @@ app_name = 'families'
 
 urlpatterns = [
     path('<int:family_id>/people/', include('apps.persons.urls', namespace='persons')),   # <<-- important: family_id forwarded
+    path('<int:family_id>/', include('apps.relationships.urls', namespace='relationships')),
+    path('<int:family_id>/export/', include("apps.exports.urls", namespace='exports_file')),
+
     path('list/', views.FamilyListView.as_view(), name='list'),
     path('create/', views.FamilyCreateView.as_view(), name='create'),
     path('join/', views.JoinByCodeView.as_view(), name='join'),

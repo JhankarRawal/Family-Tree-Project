@@ -30,7 +30,6 @@ urlpatterns = [
     path("<int:pk>/people/", include("apps.persons.urls")),
     path('relationships/', include('apps.relationships.urls')),
     path('search/', include('apps.search.urls')),
-    path("families/export/", include("apps.exports.urls")),
     path("activitylog/", include("apps.activitylog.urls")),
     # path("<int:family_id>/tree/", include("apps.tree.urls")),
 ]

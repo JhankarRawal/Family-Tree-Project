@@ -14,7 +14,7 @@
         Check Relationship
     </button>
 
-    <button class="btn btn-sm btn-primary" onclick="exportTreePDF()">
+    <button  class="btn btn-sm btn-primary" onclick="exportPDF()">
         Export PDF
     </button>
 
@@ -49,7 +49,7 @@
 <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
 
 <!-- Tree logic -->
-<script src="{% static 'js/tree/tree.js' %}"></script>
+<script type="module" src="{% static 'js/tree/tree.js' %}"></script>
 
 <!-- Export logic -->
 <script src="{% static 'js/export/export_pdf.js' %}"></script>
@@ -58,7 +58,7 @@
 // Redirect to relationship check page
 function goToRelationshipCheck() {
     // Replace family.id with the Django context variable
-    window.location.href = "{% url 'relationships:relationship_check_page' family_id %}";
+    window.location.href = "{% url 'families:relationships:relationship_check_page' family_id %}";
 }
 </script>
 

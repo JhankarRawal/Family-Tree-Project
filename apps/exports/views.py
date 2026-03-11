@@ -1,62 +1,57 @@
-import base64
 import zipfile
 from io import BytesIO
 from django.views import View
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.core.files.base import ContentFile
 
-from apps.families.models import Family
 from apps.activitylog.utils import log_activity
+from apps.families.models import Family
+from apps.exports.utils import generate_family_tree_pdf, generate_gedcom
 from .models import FamilyTreeExport
-from .utils import generate_gedcom
 
-
-class SaveVisualPDFView(View):
-    def post(self, request, family_id):
+# --------------------------
+# PDF Export
+# --------------------------
+class ExportPDFView(View):
+    def get(self, request, family_id):
         family = get_object_or_404(Family, id=family_id)
+        pdf_bytes = generate_family_tree_pdf(family)  # generate dynamically
 
-        pdf_data = request.POST.get("pdf")
-        decoded = base64.b64decode(pdf_data.split(",")[1])
-
+        # Save to DB
         export = FamilyTreeExport.objects.create(
             family=family,
             exported_by=request.user,
             export_type="pdf"
         )
-
-        export.file.save(
-            f"family_{family.id}_tree.pdf",
-            ContentFile(decoded)
-        )
-
+        export.file.save(f"family_{family.id}_tree.pdf", ContentFile(pdf_bytes))
         log_activity(
             family=family,
             user=request.user,
             action_type="export",
             target_type="family_tree",
             target_id=family.id,
-            description="Exported visual family tree PDF"
+            description="Exported family tree PDF"
         )
 
-        return JsonResponse({"status": "saved"})
+        # Return download
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
+        response['Content-Disposition'] = f'attachment; filename="family_{family.id}_tree.pdf"'
+        return response
+
 
 class ExportGEDCOMView(View):
     def get(self, request, family_id):
         family = get_object_or_404(Family, id=family_id)
-        gedcom = generate_gedcom(family)
+        gedcom_text = generate_gedcom(family)
 
+        # Save to DB
         export = FamilyTreeExport.objects.create(
             family=family,
             exported_by=request.user,
             export_type="gedcom"
         )
-
-        export.file.save(
-            f"family_{family.id}.ged",
-            ContentFile(gedcom)
-        )
-
+        export.file.save(f"family_{family.id}.ged", ContentFile(gedcom_text))
         log_activity(
             family=family,
             user=request.user,
@@ -66,35 +61,33 @@ class ExportGEDCOMView(View):
             description="Exported GEDCOM file"
         )
 
-        response = HttpResponse(gedcom, content_type="application/octet-stream")
-        response["Content-Disposition"] = f'attachment; filename="family_{family.id}.ged"'
+        response = HttpResponse(gedcom_text, content_type='application/octet-stream')
+        response['Content-Disposition'] = f'attachment; filename="family_{family.id}.ged"'
         return response
 
-
-class ExportCombinedZIPView(View):
-    def post(self, request, family_id):
+# --------------------------
+# ZIP Export (PDF + GEDCOM)
+# --------------------------
+class ExportZIPView(View):
+    def get(self, request, family_id):
         family = get_object_or_404(Family, id=family_id)
 
-        pdf_data = request.POST.get("pdf")
-        pdf_bytes = base64.b64decode(pdf_data.split(",")[1])
+        pdf_bytes = generate_family_tree_pdf(family)
         gedcom_text = generate_gedcom(family)
 
         buffer = BytesIO()
-        with zipfile.ZipFile(buffer, "w") as z:
-            z.writestr("family_tree.pdf", pdf_bytes)
-            z.writestr("family_tree.ged", gedcom_text)
+        with zipfile.ZipFile(buffer, 'w') as z:
+            z.writestr(f"family_{family.id}_tree.pdf", pdf_bytes)
+            z.writestr(f"family_{family.id}.ged", gedcom_text)
+        buffer.seek(0)
 
+        # Save to DB
         export = FamilyTreeExport.objects.create(
             family=family,
             exported_by=request.user,
             export_type="zip"
         )
-
-        export.file.save(
-            f"family_{family.id}_export.zip",
-            ContentFile(buffer.getvalue())
-        )
-
+        export.file.save(f"family_{family.id}_export.zip", ContentFile(buffer.getvalue()))
         log_activity(
             family=family,
             user=request.user,
@@ -104,10 +97,6 @@ class ExportCombinedZIPView(View):
             description="Exported PDF + GEDCOM ZIP"
         )
 
-        response = HttpResponse(
-            buffer.getvalue(),
-            content_type="application/zip"
-        )
-        response["Content-Disposition"] = f'attachment; filename="family_{family.id}_export.zip"'
+        response = HttpResponse(buffer.getvalue(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="family_{family.id}_export.zip"'
         return response
-

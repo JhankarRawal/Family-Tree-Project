@@ -75,10 +75,11 @@
             <strong>{{ log.user.username|default:"System" }}</strong>
 
             <span class="badge
-              {% if log.action_type == 'create' %}bg-success
-              {% elif log.action_type == 'update' %}bg-warning
-              {% elif log.action_type == 'delete' %}bg-danger
-              {% endif %}
+                {% if log.action_type == 'create' %}bg-success
+                {% elif log.action_type == 'update' %}bg-warning
+                {% elif log.action_type == 'delete' %}bg-danger
+                {% elif log.action_type == 'export' %}bg-primary
+                {% endif %}
             ">
               {{ log.action_type }}
             </span>
@@ -103,35 +104,50 @@
   </div>
 
   <!-- Pagination -->
-  {% if is_paginated %}
-  <nav class="mt-3">
-    <ul class="pagination justify-content-center">
-      {% if page_obj.has_previous %}
-        <li class="page-item">
-          <a class="page-link"
-             href="?page={{ page_obj.previous_page_number }}&{{ request.GET.urlencode }}">
-            Previous
-          </a>
-        </li>
-      {% endif %}
+{% if is_paginated %}
+<nav class="mt-3">
+  <ul class="pagination justify-content-center">
 
-      <li class="page-item active">
-        <span class="page-link">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-        </span>
-      </li>
+    <!-- Previous -->
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link"
+         href="?page={{ page_obj.previous_page_number }}
+         {% if filters.action_type %}&action_type={{ filters.action_type }}{% endif %}
+         {% if filters.target_type %}&target_type={{ filters.target_type }}{% endif %}
+         {% if filters.user %}&user={{ filters.user }}{% endif %}
+         {% if filters.date_from %}&date_from={{ filters.date_from }}{% endif %}
+         {% if filters.date_to %}&date_to={{ filters.date_to }}{% endif %}">
+        Previous
+      </a>
+    </li>
+    {% endif %}
 
-      {% if page_obj.has_next %}
-        <li class="page-item">
-          <a class="page-link"
-             href="?page={{ page_obj.next_page_number }}&{{ request.GET.urlencode }}">
-            Next
-          </a>
-        </li>
-      {% endif %}
-    </ul>
-  </nav>
-  {% endif %}
+    <!-- Page info -->
+    <li class="page-item active">
+      <span class="page-link">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+    </li>
+
+    <!-- Next -->
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link"
+         href="?page={{ page_obj.next_page_number }}
+         {% if filters.action_type %}&action_type={{ filters.action_type }}{% endif %}
+         {% if filters.target_type %}&target_type={{ filters.target_type }}{% endif %}
+         {% if filters.user %}&user={{ filters.user }}{% endif %}
+         {% if filters.date_from %}&date_from={{ filters.date_from }}{% endif %}
+         {% if filters.date_to %}&date_to={{ filters.date_to }}{% endif %}">
+        Next
+      </a>
+    </li>
+    {% endif %}
+
+  </ul>
+</nav>
+{% endif %}
 
 </div>
 {% endblock %}

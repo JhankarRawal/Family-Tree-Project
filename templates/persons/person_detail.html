@@ -143,15 +143,15 @@
     {% if membership.family.id == family.id %}
         {% if membership.role == "owner" or membership.role == "admin" or membership.role == "editor" %}
             <div class="mb-4">
-                <a href="{% url 'relationships:add_parent' family.id person.id %}" class="btn btn-outline-primary btn-sm">
+                <a href="{% url 'families:relationships:add_parent' family.id person.id %}" class="btn btn-outline-primary btn-sm">
                     Add Parent
                 </a>
 
-                <a href="{% url 'relationships:add_child' family.id person.id %}" class="btn btn-outline-primary btn-sm">
+                <a href="{% url 'families:relationships:add_child' family.id person.id %}" class="btn btn-outline-primary btn-sm">
                     Add Child
                 </a>
 
-                <a href="{% url 'relationships:add_spouse' family.id person.id %}" class="btn btn-outline-primary btn-sm">
+                <a href="{% url 'families:relationships:add_spouse' family.id person.id %}" class="btn btn-outline-primary btn-sm">
                     Add Spouse
                 </a>
             </div>
