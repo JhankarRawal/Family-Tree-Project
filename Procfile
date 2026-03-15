@@ -1,0 +1,1 @@
+web: gunicorn family_tree_projec.wsgi
