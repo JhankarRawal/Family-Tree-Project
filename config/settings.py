@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from decouple import config, Csv
+import dj_database_url
 
 
 
@@ -85,14 +86,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # DATABASE (PostgreSQL)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config("DB_NAME"),
-        'USER': config("DB_USER"),
-        'PASSWORD': config("DB_PASSWORD"),
-        'HOST': config("DB_HOST", default="127.0.0.1"),
-        'PORT': config("DB_PORT", default="5432"),
-    }
+    'default': dj_database_url.config(
+        default=f"postgres://{config('DB_USER')}:{config('DB_PASSWORD')}@{config('DB_HOST', default='127.0.0.1')}:{config('DB_PORT', default='5432')}/{config('DB_NAME')}",
+        conn_max_age=600
+    )
 }
 
 # PASSWORD VALIDATION
