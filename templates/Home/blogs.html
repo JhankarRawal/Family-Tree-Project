@@ -1,0 +1,201 @@
+{% extends "base1.html" %}
+{% block extra_head %}
+<style>
+  .blog-filter { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .blog-filter-btn {
+    padding:9px 22px; border-radius:30px; border:1.5px solid rgba(11,37,69,.2);
+    background:transparent; font-family:'Jost',sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--navy); cursor:pointer; transition:var(--transition);
+  }
+  .blog-filter-btn:hover, .blog-filter-btn.active {
+    background:var(--navy); color:var(--white); border-color:var(--navy);
+  }
+</style>
+{% endblock extra_head %}
+
+{% block content %}
+
+<!-- ── Hero Section ─────────────────────────────────────── -->
+  <section class="page-hero">
+    <div class="page-hero__pattern"></div>
+    <div class="container">
+      <div class="page-hero__content">
+        <span class="page-hero__label">Insights &amp; Stories</span>
+        <h1>The Family Tree Blog</h1>
+        <p class="page-hero__sub">Guides, research tips, and stories about genealogy, heritage, and preserving family history.</p>
+        <div class="page-hero__line"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Featured Article -->
+      <div class="blog-featured fade-up">
+        <div class="blog-featured__thumb">🌿</div>
+        <div class="blog-featured__body">
+          <div class="blog-featured__label">Featured Article</div>
+          <h2 style="margin-bottom:16px;font-size:clamp(1.4rem,2.5vw,2rem);">Why Genealogy Matters More Than Ever in the Digital Age</h2>
+          <p style="margin-bottom:24px;font-size:1rem;">In an era of rapid change and global disconnection, understanding our family roots provides an irreplaceable anchor of identity. We explore the psychological, cultural, and historical significance of genealogy research — and why now is the most important time to start preserving your family's legacy.</p>
+          <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;font-size:.82rem;color:var(--text-muted);">
+            <span>📅 December 2024</span>
+            <span>⏱ 8 min read</span>
+            <span>📂 Genealogy</span>
+          </div>
+          <a href="#" class="btn btn-navy">Read Full Article →</a>
+        </div>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="blog-filter">
+        <button class="blog-filter-btn active" data-filter="all">All Articles</button>
+        <button class="blog-filter-btn" data-filter="genealogy">Genealogy</button>
+        <button class="blog-filter-btn" data-filter="howto">How-To Guides</button>
+        <button class="blog-filter-btn" data-filter="heritage">Heritage</button>
+        <button class="blog-filter-btn" data-filter="tools">Digital Tools</button>
+      </div>
+
+      <!-- Blog Grid -->
+      <div class="blog-grid">
+
+        <div class="blog-card fade-up" data-category="genealogy">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#0B2545,#143060);">🔬</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">Genealogy</div>
+            <div class="blog-card__title">The Importance of Genealogy Research for Future Generations</div>
+            <p class="blog-card__excerpt">Genealogy research is not merely a hobby — it is an act of preservation. Every name recorded, every date confirmed, and every relationship mapped becomes a permanent gift to descendants not yet born. Learn why systematic genealogy matters and how to approach it with scholarly rigor.</p>
+            <div class="blog-card__meta">
+              <span>📅 Nov 28, 2024 · 6 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up" data-category="howto">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#5C3D2E,#7a5242);">📋</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">How-To Guide</div>
+            <div class="blog-card__title">How to Build a Family Tree from Scratch: A Complete Beginner's Guide</div>
+            <p class="blog-card__excerpt">Starting a family tree can feel overwhelming. Where do you begin? What sources can you trust? How do you organize what you find? This comprehensive guide walks you through every stage — from gathering oral histories to verifying records with primary sources.</p>
+            <div class="blog-card__meta">
+              <span>📅 Nov 15, 2024 · 12 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up" data-category="heritage">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#D4AF37,#b8962e);">🏛️</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">Heritage</div>
+            <div class="blog-card__title">Preserving Family Heritage: From Paper Records to Digital Archives</div>
+            <p class="blog-card__excerpt">Physical documents — birth certificates, letters, photographs, land deeds — are fragile. Digitizing and organizing these materials before they deteriorate is one of the most valuable things a family can do. Discover best practices for preservation and long-term digital archiving.</p>
+            <div class="blog-card__meta">
+              <span>📅 Nov 05, 2024 · 9 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up" data-category="tools">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#143060,#0B2545);">💻</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">Digital Tools</div>
+            <div class="blog-card__title">The Best Digital Tools for Genealogy Research in 2024</div>
+            <p class="blog-card__excerpt">Technology has transformed genealogy research. Online census databases, DNA testing services, digitized newspaper archives, and collaborative tree-building platforms have made it possible to discover ancestors that previous generations never could. Here's our curated guide to the most powerful tools available.</p>
+            <div class="blog-card__meta">
+              <span>📅 Oct 22, 2024 · 10 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up" data-category="genealogy">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#2d5a27,#3d7a35);">🧬</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">Genealogy</div>
+            <div class="blog-card__title">Understanding DNA Testing in Genealogy: What It Can and Cannot Tell You</div>
+            <p class="blog-card__excerpt">DNA testing has revolutionized genealogy research, connecting distant cousins and confirming family stories passed down for generations. But DNA results require careful interpretation. This article explains how autosomal, Y-DNA, and mtDNA tests work and how to integrate results with traditional research.</p>
+            <div class="blog-card__meta">
+              <span>📅 Oct 10, 2024 · 11 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up" data-category="howto">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#5C3D2E,#0B2545);">🗂️</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">How-To Guide</div>
+            <div class="blog-card__title">How to Conduct Oral History Interviews With Elderly Relatives</div>
+            <p class="blog-card__excerpt">Your oldest relatives are living archives of irreplaceable stories. But gathering those stories requires skill, preparation, and sensitivity. Learn how to prepare thoughtful questions, create a comfortable environment, record sessions ethically, and transcribe and preserve what you collect.</p>
+            <div class="blog-card__meta">
+              <span>📅 Sep 28, 2024 · 7 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up" data-category="heritage">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#8B4513,#5C3D2E);">🌍</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">Heritage</div>
+            <div class="blog-card__title">Tracing Immigrant Ancestors: Navigating Foreign Records and Archives</div>
+            <p class="blog-card__excerpt">For families with immigrant ancestors, genealogy research spans national borders, languages, and historical archives. This guide explores strategies for tracing ancestors through immigration records, ship manifests, naturalization documents, and the archives of their countries of origin.</p>
+            <div class="blog-card__meta">
+              <span>📅 Sep 15, 2024 · 13 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up" data-category="tools">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#D4AF37,#5C3D2E);">📤</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">Digital Tools</div>
+            <div class="blog-card__title">GEDCOM Explained: The Universal Language of Genealogy Software</div>
+            <p class="blog-card__excerpt">GEDCOM (Genealogical Data Communication) is the file format that makes your family data portable across every genealogy platform. Understanding how it works allows you to import, export, and share your research without being locked into any single tool. Here's everything you need to know.</p>
+            <div class="blog-card__meta">
+              <span>📅 Sep 02, 2024 · 6 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up" data-category="genealogy">
+          <div class="blog-card__thumb" style="background:linear-gradient(135deg,#0B2545,#D4AF37);">⭐</div>
+          <div class="blog-card__body">
+            <div class="blog-card__category">Genealogy</div>
+            <div class="blog-card__title">Citation Standards in Genealogy: Why Sources Matter and How to Document Them</div>
+            <p class="blog-card__excerpt">A family tree without citations is genealogical fiction. Understanding how to properly document your sources — from census records to personal interviews — transforms an interesting story into a verifiable historical record. Learn the standards that professional genealogists use.</p>
+            <div class="blog-card__meta">
+              <span>📅 Aug 20, 2024 · 8 min</span>
+              <a href="#" class="blog-card__read-more">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Load More -->
+      <div style="text-align:center;">
+        <button class="btn btn-navy" style="cursor:pointer;">Load More Articles</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section section--alt" style="padding:80px 0;">
+    <div class="container text-center">
+      <span class="section-label">Stay Updated</span>
+      <h2 class="section-title">Subscribe to Our Newsletter</h2>
+      <p class="section-subtitle">Receive monthly genealogy tips, research guides, and platform updates directly in your inbox.</p>
+      <div style="display:flex;gap:12px;justify-content:center;max-width:480px;margin:0 auto;flex-wrap:wrap;">
+        <input type="email" placeholder="Your email address" class="form-control" style="flex:1;min-width:220px;" />
+        <button class="btn btn-primary">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}

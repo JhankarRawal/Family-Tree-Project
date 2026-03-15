@@ -1,0 +1,168 @@
+{% extends "base1.html" %}
+{% load static %}
+
+{% block title %}Technology — Family Tree Web Application{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'style1.css' %}" />
+<style>
+  .tech-bar-wrap{background:var(--bg);border-radius:4px;height:8px;margin-top:0.6rem;overflow:hidden;}
+  .tech-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--brown));border-radius:4px;width:0%;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);}
+  .arch-box{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:0.8rem;display:flex;align-items:center;gap:1rem;transition:var(--transition);}
+  .arch-box:hover{border-color:var(--gold);box-shadow:var(--shadow-sm);}
+  .arch-box .layer-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="reading-progress"></div>
+
+<!-- Hero Section -->
+  <section class="page-hero">
+    <div class="page-hero__pattern"></div>
+    <div class="container">
+      <div class="page-hero__content">
+        <span class="page-hero__label">Under the Hood</span>
+        <h1>Technology Stack</h1>
+        <p class="page-hero__sub">Built on proven, enterprise-grade technologies for a fast, secure, and reliable genealogy experience.</p>
+        <div class="page-hero__line"></div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+<!-- System Architecture -->
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>System Architecture</h2>
+      <div class="gold-line"></div>
+      <p class="lead">The Family Tree Web Application follows a layered MVC architecture built around Django. Each layer is optimized for its specific responsibility.</p>
+    </div>
+
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+      <!-- Left Column: Layers -->
+      <div>
+        <h3 style="margin-bottom:1.5rem;">Application Layers</h3>
+        <div class="arch-box">
+          <div class="layer-dot" style="background:#D4AF37;"></div>
+          <div><strong>Presentation Layer</strong><p>HTML5 · CSS3 · JavaScript · D3.js</p></div>
+        </div>
+        <div class="arch-box">
+          <div class="layer-dot" style="background:#0B2545;"></div>
+          <div><strong>Application Layer</strong><p>Django Framework · Python · Views · URLs</p></div>
+        </div>
+        <div class="arch-box">
+          <div class="layer-dot" style="background:#5C3D2E;"></div>
+          <div><strong>Business Logic Layer</strong><p>Django Models · Signals · Forms · APIs</p></div>
+        </div>
+        <div class="arch-box">
+          <div class="layer-dot" style="background:#1e4a82;"></div>
+          <div><strong>Data Layer</strong><p>PostgreSQL · Django ORM · Full-Text Search</p></div>
+        </div>
+        <div class="arch-box">
+          <div class="layer-dot" style="background:#8b5e44;"></div>
+          <div><strong>Export Layer</strong><p>ReportLab · python-gedcom · File Storage</p></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Technology Proficiency -->
+      <div>
+        <h3 style="margin-bottom:1.5rem;">Technology Proficiency</h3>
+
+        {% for tech, pct in tech_list %}
+        <div style="margin-bottom:1.2rem;">
+          <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;color:var(--navy);">
+            <span>{{ tech }}</span><span>{{ pct }}%</span>
+          </div>
+          <div class="tech-bar-wrap">
+            <div class="tech-bar-fill" data-pct="{{ pct }}"></div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Technologies Explained -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Core Technologies Explained</h2>
+      <div class="gold-line"></div>
+    </div>
+
+    <div class="grid-2" style="gap:2rem;">
+      <!-- Django Card -->
+      <div class="tech-card reveal reveal-delay-1">
+        <div class="tech-badge">🐍 Backend Framework</div>
+        <h3>Django</h3>
+        <p style="margin:0.75rem 0 1rem;">Django is a high-level Python web framework following the MVT pattern. It provides everything needed for a secure, scalable web application out of the box.</p>
+        <p>In our application, Django handles all server-side routing, data modeling, form processing, and security. The Django ORM lets us interact with the database using clean Python code, while Django's admin interface provides a powerful management back-end.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.2rem;">
+          <span class="tag">MVT Architecture</span><span class="tag">ORM</span><span class="tag">Middleware</span><span class="tag">Admin Panel</span><span class="tag">URL Routing</span><span class="tag">Signals</span>
+        </div>
+      </div>
+
+      <!-- PostgreSQL Card -->
+      <div class="tech-card reveal reveal-delay-2">
+        <div class="tech-badge">🐘 Database System</div>
+        <h3>PostgreSQL</h3>
+        <p>PostgreSQL is a powerful, open-source relational database. It ensures ACID-compliant transactions and data integrity for our application.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.2rem;">
+          <span class="tag">ACID Compliant</span><span class="tag">Relational Schema</span><span class="tag">JSONB Support</span><span class="tag">Indexes &amp; Views</span><span class="tag">Foreign Keys</span>
+        </div>
+      </div>
+
+      <!-- Additional tech cards can be added here -->
+
+    </div>
+  </div>
+</section>
+
+<!-- Why These Technologies -->
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Why These Technologies?</h2>
+      <div class="gold-line"></div>
+      <p class="lead">Every technology was chosen deliberately — for reliability, longevity, and genealogy-specific requirements.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card reveal reveal-delay-1">
+        <div class="card-icon">🏗️</div>
+        <h3>Battle-Tested</h3>
+        <p>Django powers Instagram, Disqus, and Mozilla. PostgreSQL is trusted by Apple, Netflix, and NASA. Our foundation is proven at global scale.</p>
+      </div>
+      <div class="card reveal reveal-delay-2">
+        <div class="card-icon">🔒</div>
+        <h3>Security First</h3>
+        <p>Family data is deeply personal. Django's security defaults and PostgreSQL's access controls ensure data stays protected.</p>
+      </div>
+      <div class="card reveal reveal-delay-3">
+        <div class="card-icon">⚡</div>
+        <h3>High Performance</h3>
+        <p>PostgreSQL's native search eliminates external dependencies. D3.js renders thousands of nodes smoothly in the browser.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+  <div class="container" style="position:relative;z-index:1;">
+    <h2>Built on Excellence, Designed for You</h2>
+    <p class="lead" style="color:rgba(255,255,255,0.72);">Experience the power of professional genealogy technology.</p>
+    <div class="cta-actions" style="align-items: center;">
+      <a href="{% url 'features' %}" class="btn btn-outline-gold">See All Features</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

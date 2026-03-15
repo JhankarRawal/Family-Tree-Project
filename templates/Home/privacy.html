@@ -1,0 +1,180 @@
+{% extends "base1.html" %}
+
+{% block extra_head %}
+<style>
+  .policy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .policy-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem 1.8rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .policy-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  .policy-card .icon {
+    font-size: 2rem;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  .policy-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--navy);
+  }
+
+  .policy-card ul {
+    padding-left: 1.2rem;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .policy-card ul li {
+    margin-bottom: 0.4rem;
+  }
+</style>
+{% endblock extra_head %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero__content">
+      <span class="page-hero__label">Privacy & Security</span>
+      <h1>Privacy Policy</h1>
+      <p>We believe your family's history belongs to you — and only you. Here is exactly how we protect it.</p>
+      <div class="page-hero__line"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Last Updated Card -->
+    <div class="policy-card" style="max-width:700px;margin:0 auto;">
+      <span class="icon">📋</span>
+      <h3>Last Updated: January 2025</h3>
+      <p>This Privacy Policy describes how the Family Tree Web Application collects, uses, and protects your information. By using our platform, you agree to these terms.</p>
+    </div>
+
+    <!-- Policy Cards Grid -->
+    <div class="policy-grid">
+
+      <div class="policy-card">
+        <span class="icon">🔑</span>
+        <h3>Data Ownership</h3>
+        <p>You own your data. Every piece of information you add — names, dates, photos, and relationship records — belongs entirely to you and your family.</p>
+        <ul>
+          <li>Full intellectual property rights over all content you create.</li>
+          <li>Export your complete family tree anytime in PDF or GEDCOM format.</li>
+          <li>Account and data deletion within 30 days.</li>
+          <li>No ownership claimed by the platform.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <span class="icon">🌳</span>
+        <h3>Private Family Trees</h3>
+        <p>Privacy is the default — not an option. Every family tree is private and accessible only to invited people.</p>
+        <ul>
+          <li>Private by default, access only by invitation.</li>
+          <li>Control collaborator permissions individually.</li>
+          <li>Revoke access instantly at any time.</li>
+          <li>Living persons' details obscured automatically.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <span class="icon">🔐</span>
+        <h3>Secure Authentication</h3>
+        <ul>
+          <li>Passwords hashed with PBKDF2 + SHA-256.</li>
+          <li>CSRF protection on all web forms.</li>
+          <li>HttpOnly & Secure cookies.</li>
+          <li>Rate-limited login attempts.</li>
+          <li>Password reset links expire in 24h.</li>
+          <li>TLS/HTTPS encryption for all connections.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <span class="icon">👥</span>
+        <h3>Access Control</h3>
+        <ul>
+          <li>Owner: Full control.</li>
+          <li>Editor: Add/edit members, no permissions management.</li>
+          <li>Viewer: Read-only access.</li>
+          <li>Internal staff cannot access without request.</li>
+          <li>All access events logged.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <span class="icon">🛡️</span>
+        <h3>Data Protection</h3>
+        <ul>
+          <li>Encrypted PostgreSQL databases.</li>
+          <li>Daily encrypted backups.</li>
+          <li>ISO 27001-certified data centers.</li>
+          <li>Regular security audits.</li>
+          <li>Breach notifications within 72 hours.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <span class="icon">📊</span>
+        <h3>Information Collected</h3>
+        <ul>
+          <li>Account data: Name, email, hashed password.</li>
+          <li>Family tree data: All genealogical records added.</li>
+          <li>Usage logs: Activity within your tree.</li>
+          <li>Technical logs: Server logs retained 90 days.</li>
+          <li>Cookies: Authentication only, no tracking.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <span class="icon">⚖️</span>
+        <h3>Responsible Data Usage</h3>
+        <ul>
+          <li>✅ Display family tree & platform features.</li>
+          <li>✅ Security notifications & password resets.</li>
+          <li>✅ Aggregated anonymized usage stats.</li>
+          <li>❌ No selling or sharing to third parties.</li>
+          <li>❌ No AI training without consent.</li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <span class="icon">✊</span>
+        <h3>Your Rights</h3>
+        <ul>
+          <li>Right to Access, Rectification, Erasure, Portability.</li>
+          <li>Contact via <a href="contact.html" style="color:var(--gold);font-weight:600;">contact page</a>.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- CTA Card -->
+    <div class="policy-card" style="background:var(--navy);color:white;text-align:center;margin-top:2rem;">
+      <h3 style="margin-bottom:0.5rem;">Questions About Our Privacy Practices?</h3>
+      <p style="margin-bottom:1rem;color:rgba(255,255,255,0.72);">We're committed to transparency. Reach out — we respond within 2 business days.</p>
+      <a href="contact.html" class="btn btn-primary">Contact Us</a>
+    </div>
+
+  </div>
+</section>
+{% endblock content %}

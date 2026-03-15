@@ -17,13 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-import apps
+from apps.app.views import *
 from django.conf.urls.static import static
-from django.views.generic import TemplateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name="home.html"), name='home'),
+    path("", home, name="home"),
+    path("features/", features, name="features"),
+    path("how it works/", HowItWorks, name="HowItWorks"),
+    path("contact/", contact, name="contact"),
+    path("blogs/", blogs, name="blogs"),
+    path("technology/", technology, name="technology"),
+    path("privacy/", privacy, name="privacy"),
+    path("about/", about, name="about"),
     path('dashboard/', include('apps.dashboard.urls')),
     path('accounts/', include('apps.accounts.urls')),
     path('families/', include('apps.families.urls')),

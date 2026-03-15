@@ -1,0 +1,139 @@
+{% extends "base1.html" %}
+
+{% block content %}
+
+<!-- ── Hero Section ─────────────────────────────────────── -->
+<section class="page-hero">
+  <div class="page-hero__pattern"></div>
+  <div class="container">
+    <div class="page-hero__content">
+      <span class="page-hero__label">Get in Touch</span>
+      <h1>We'd Love to Hear From You</h1>
+      <p class="page-hero__sub">Questions, feedback, or partnership inquiries — our team responds to every message.</p>
+      <div class="page-hero__line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact Layout ───────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Info Column -->
+      <div class="contact-info-card fade-up">
+        <h3>Contact Information</h3>
+        <p>Reach us through any of the channels below. We typically respond within 24 hours on business days.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail__icon">📧</div>
+          <div>
+            <div class="contact-detail__label">Email</div>
+            <div class="contact-detail__value">jhankarrawal181@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail__icon">🛡️</div>
+          <div>
+            <div class="contact-detail__label">Privacy &amp; Security</div>
+            <div class="contact-detail__value">privacy@familytree.app</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail__icon">💡</div>
+          <div>
+            <div class="contact-detail__label">Support</div>
+            <div class="contact-detail__value">jhankarrawal181@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail__icon">🤝</div>
+          <div>
+            <div class="contact-detail__label">Partnerships</div>
+            <div class="contact-detail__value">jhankarrawal181@gmail.com</div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:28px;margin-top:10px;">
+          <div class="footer__col-title" style="margin-bottom:12px;">Quick Links</div>
+          <div style="display:flex;flex-direction:column;gap:8px; ">
+            <a href="{% url 'features' %}" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition); text-decoration: none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ View Features</a>
+            <a href="{% url 'HowItWorks' %}" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition); text-decoration: none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ How It Works</a>
+            <a href="{% url 'privacy' %}" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition); text-decoration: none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="contact-form-card fade-up">
+        <span class="section-label">Send a Message</span>
+        <h2 class="section-title" style="margin-bottom:8px;">How Can We Help?</h2>
+        <p style="margin-bottom:36px;">Fill out the form below and we'll get back to you as soon as possible.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="name">Full Name</label>
+              <input type="text" id="name" class="form-control" placeholder="Jane Smith" />
+              <div class="form-error" id="nameError"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <input type="email" id="email" class="form-control" placeholder="jane@example.com" />
+              <div class="form-error" id="emailError"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject</label>
+            <input type="text" id="subject" class="form-control" placeholder="What is your message about?" />
+            <div class="form-error" id="subjectError"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea id="message" class="form-control" rows="6" placeholder="Tell us how we can help you..."></textarea>
+            <div class="form-error" id="messageError"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:16px;">
+            Send Message ✉️
+          </button>
+          <div class="form-success" id="formSuccess">
+            ✅ Your message has been sent! We'll get back to you within 24 hours.
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ Section ─────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container text-center">
+    <span class="section-label">Common Questions</span>
+    <h2 class="section-title">Before You Write to Us</h2>
+    <p class="section-subtitle">You might find an instant answer here.</p>
+    <div class="grid-2 mt-4">
+      <div class="card fade-up">
+        <div class="card__title">How quickly do you respond?</div>
+        <p class="card__text">We aim to respond to all messages within 24 hours on business days. For urgent security issues, we prioritize response within 4 hours.</p>
+      </div>
+      <div class="card fade-up">
+        <div class="card__title">Do you offer customer support in other languages?</div>
+        <p class="card__text">Currently our primary support language is English. We are working to expand multilingual support and appreciate your patience.</p>
+      </div>
+      <div class="card fade-up">
+        <div class="card__title">I forgot my password. What do I do?</div>
+        <p class="card__text">Use the "Forgot Password" link on the login page. You'll receive a password reset email within a few minutes. Check your spam folder if it doesn't arrive.</p>
+      </div>
+      <div class="card fade-up">
+        <div class="card__title">Can I request a feature?</div>
+        <p class="card__text">Absolutely. We love hearing from users about the features that would make the biggest difference. Use the contact form above with the subject "Feature Request".</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

@@ -41,12 +41,13 @@ html {
 }
 
 .navbar.scrolled .nav-link {
-  color: #FF8364;
+  color: #071a34;
+
 }
 
 .navbar .nav-link {
   position: relative;
-  color: #FF8364;
+  color:   #d45b3c;
   text-decoration: none;
   font-weight: 500;
 }

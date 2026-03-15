@@ -1,0 +1,45 @@
+{% extends "base1.html" %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid hero-container pt-0 mt-0 hero-section">
+<div class="container-fluid hero-container pt-0 mt-0 hero-section">
+    <div class="row flex-lg-row-reverse align-items-center g-4 py-4">
+
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{% static 'images/hero1.png' %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
+          width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6 ps-lg-5 pe-lg-3t">
+        <h1 class="display-5 fw-bold lh-1 mb-3">Preserve Your Family History Digitally</h1>
+        <p class="lead"> Create, manage, and visualize your family relationships securely using an interactive
+          family tree.
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          {% if user.is_authenticated %}
+          {% if request.session.family_id %}
+          <a class="nav-link px-3 py-1 border rounded"
+            href="{% url 'dashboard:family_dashboard' request.session.family_id %}">
+            Dashboard →
+          </a>
+          {% else %}
+          <a class="nav-link px-3 py-1 border rounded" href="{% url 'families:list' %}">
+            Select Family →
+          </a>
+          {% endif %}
+          {% else %}
+          <a class="nav-link px-3 py-1 border rounded" href="{% url 'accounts:login' %}">
+            Get Started →
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

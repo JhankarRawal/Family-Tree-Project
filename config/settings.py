@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.activitylog',
     'apps.tree',
     "django_extensions",
+    'apps.app',  
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
