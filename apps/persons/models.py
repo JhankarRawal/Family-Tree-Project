@@ -60,9 +60,6 @@ class Person(models.Model):
     class Meta:
         ordering = ['first_name', 'last_name']
         indexes = [
-            # GinIndex(fields=["first_name", "last_name"],
-            #          name='person_name_gin',
-            # opclasses=['gin_trgm_ops','gin_trgm_ops'],), 
             models.Index(fields=['family']),
             models.Index(fields=['last_name']),
             models.Index(fields=['gender']),
