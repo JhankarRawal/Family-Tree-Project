@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — Family Tree</title>
+  <meta name="description" content="Explore all the powerful features of the Family Tree Web Application — from interactive visualization to export tools." />
+  <link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────────── -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <div class="navbar__logo-icon">🌳</div>
+        Family Tree
+      </a>
+      <div class="navbar__nav">
+        <a href="index.html">Home</a>
+        <a href="features.html" class="active">Features</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="technology.html">Technology</a>
+        <a href="blogs.html">Blog</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="navbar__cta">
+        <a href="#" class="btn btn-outline" style="padding:10px 20px;font-size:.82rem;">Log In</a>
+        <a href="#" class="btn btn-primary" style="padding:10px 20px;font-size:.82rem;">Get Started</a>
+      </div>
+      <button class="navbar__hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ───────────────────────────────────────────────── -->
+  <section class="page-hero">
+    <div class="page-hero__pattern"></div>
+    <div class="container">
+      <div class="page-hero__content">
+        <span class="page-hero__label">Platform Capabilities</span>
+        <h1>Powerful Features for<br>Every Family Story</h1>
+        <p class="page-hero__sub">Everything you need to discover, document, and share your family's unique heritage.</p>
+        <div class="page-hero__line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Feature Highlight ──────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="features-highlight">
+        <div class="features-highlight__text">
+          <span class="section-label">Signature Feature</span>
+          <h2 class="section-title">Interactive Family Tree Visualization</h2>
+          <p style="margin-bottom:20px;">Built on D3.js, our visualization engine renders your family tree as a living, interactive diagram. Pan, zoom, and explore branches spanning generations with fluid animations and a beautifully designed node system.</p>
+          <p>Color-coded relationships, expandable branches, and real-time updates ensure your family's story is always clear and accessible.</p>
+          <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;">
+            <span class="privacy-badge">🔍 Pan &amp; Zoom</span>
+            <span class="privacy-badge">🌿 Branch Expansion</span>
+            <span class="privacy-badge">🎨 Color Coding</span>
+            <span class="privacy-badge">⚡ Real-time Updates</span>
+          </div>
+        </div>
+        <div class="features-highlight__visual">
+          <div class="tree-viz">
+            <!-- Decorative SVG tree nodes -->
+            <svg viewBox="0 0 220 220" style="position:absolute;inset:0;width:100%;height:100%;opacity:.35">
+              <line x1="110" y1="50" x2="55"  y2="120" stroke="#D4AF37" stroke-width="1.5"/>
+              <line x1="110" y1="50" x2="165" y2="120" stroke="#D4AF37" stroke-width="1.5"/>
+              <line x1="55"  y1="120" x2="30" y2="180" stroke="#D4AF37" stroke-width="1.5"/>
+              <line x1="55"  y1="120" x2="80" y2="180" stroke="#D4AF37" stroke-width="1.5"/>
+              <line x1="165" y1="120" x2="140" y2="180" stroke="#D4AF37" stroke-width="1.5"/>
+              <line x1="165" y1="120" x2="190" y2="180" stroke="#D4AF37" stroke-width="1.5"/>
+            </svg>
+            <div class="tree-viz__node" style="top:22px;left:88px;">👤</div>
+            <div class="tree-viz__node" style="top:96px;left:33px;">👤</div>
+            <div class="tree-viz__node" style="top:96px;left:143px;">👤</div>
+            <div class="tree-viz__node" style="top:155px;left:8px;">👤</div>
+            <div class="tree-viz__node" style="top:155px;left:58px;">👤</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Feature Cards Grid ── -->
+      <div class="ornament"><div class="ornament-diamond"></div></div>
+      <div class="text-center">
+        <span class="section-label">All Features</span>
+        <h2 class="section-title">Everything Your Family Needs</h2>
+        <p class="section-subtitle">A comprehensive toolkit designed to make genealogy research intuitive, collaborative, and secure.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card fade-up">
+          <div class="card__icon">🌳</div>
+          <div class="card__title">Family Tree Visualization</div>
+          <p class="card__text">Render your family tree as an interactive, zoomable diagram powered by D3.js. Explore generational branches with smooth animations, collapsible nodes, and intuitive pan-and-zoom controls. Every relationship is rendered clearly, making complex family structures easy to understand at a glance.</p>
+        </div>
+        <div class="card fade-up">
+          <div class="card__icon">👥</div>
+          <div class="card__title">Person Management</div>
+          <p class="card__text">Add, edit, and manage detailed profiles for every family member. Store names, birth dates, biographical notes, photos, and life events. Rich profile pages give each person their own complete record within your family's digital archive.</p>
+        </div>
+        <div class="card fade-up">
+          <div class="card__icon">🔗</div>
+          <div class="card__title">Relationship Management</div>
+          <p class="card__text">Define precise family relationships — parent, child, spouse, sibling, and more. The system intelligently validates connections and prevents logical conflicts, ensuring your family tree always represents accurate genealogical data.</p>
+        </div>
+        <div class="card fade-up">
+          <div class="card__icon">✉️</div>
+          <div class="card__title">Family Invitation System</div>
+          <p class="card__text">Invite relatives to collaborate on your shared family tree via email invitations. Manage roles and permissions to control who can view, edit, or administer your family records. Build your tree together, wherever your family lives.</p>
+        </div>
+        <div class="card fade-up">
+          <div class="card__icon">🔍</div>
+          <div class="card__title">Advanced Search</div>
+          <p class="card__text">Locate any relative instantly using our PostgreSQL full-text search engine. Search by name, relationship type, birth year, or any biographical detail. Fuzzy matching and ranking ensure you always find the right person even with incomplete information.</p>
+        </div>
+        <div class="card fade-up">
+          <div class="card__icon">📋</div>
+          <div class="card__title">Activity Logs</div>
+          <p class="card__text">Track every change made to your family tree with timestamped activity logs. See who added a member, edited a relationship, or updated a profile — giving your family full transparency and the ability to review or revert any modification.</p>
+        </div>
+        <div class="card fade-up">
+          <div class="card__icon">📤</div>
+          <div class="card__title">Export Options</div>
+          <p class="card__text">Export your family history in multiple formats. Generate beautifully formatted PDF reports for printing and sharing, or export standard GEDCOM files compatible with any genealogy software. Your data is always portable and yours to keep.</p>
+        </div>
+        <div class="card fade-up">
+          <div class="card__icon">🔒</div>
+          <div class="card__title">Privacy Controls</div>
+          <p class="card__text">Maintain complete control over your family's private information. Every tree is private by default. Granular access permissions let you decide exactly who can see, edit, or manage each part of your genealogy records. Security is built into the foundation.</p>
+        </div>
+        <div class="card fade-up">
+          <div class="card__icon">📱</div>
+          <div class="card__title">Responsive Access</div>
+          <p class="card__text">Access your family tree from any device — desktop, tablet, or smartphone. The fully responsive interface ensures a seamless experience whether you're at your desk or browsing from the field during genealogy research.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Banner ─────────────────────────────────────────── -->
+  <section class="section section--navy" style="padding:80px 0;">
+    <div class="container text-center">
+      <span class="section-label">Begin Your Journey</span>
+      <h2 style="color:#fff;margin-bottom:16px;">Ready to Build Your Family Tree?</h2>
+      <p style="color:rgba(255,255,255,.6);max-width:480px;margin:0 auto 36px;">Join families worldwide who are preserving their heritage with our platform.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="#" class="btn btn-primary">Get Started Free</a>
+        <a href="how-it-works.html" class="btn btn-outline">See How It Works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__gold-line"></div>
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><div class="footer__brand-icon">🌳</div>Family Tree</div>
+          <p class="footer__desc">A genealogy platform helping families discover, document, and share their ancestry across generations. Preserve your heritage — digitally, beautifully, forever.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">Navigate</div>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="how-it-works.html">How It Works</a></li>
+            <li><a href="technology.html">Technology</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Resources</div>
+          <ul class="footer__links">
+            <li><a href="blogs.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Legal</div>
+          <ul class="footer__links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2024 Family Tree Web Application. All rights reserved.</span>
+        <span>Built with ❤️ for families everywhere</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+  <script src="main.js"></script>
+</body>
+</html>

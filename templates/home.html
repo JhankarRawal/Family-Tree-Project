@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+  <link href="{% static 'css/style.css'%}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'js/scripts.js'%}"></script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-light fixed-top">
+    <div class="container-fluid flex-column">
+
+      <!-- LOGO + HAMBURGER (same row, justify-between) -->
+      <div class="d-flex w-100 align-items-center justify-content-between">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'images/logo.png' %}" alt="" width="100" height="30">
+        </a>
+
+        <!-- Hamburger Button (far right) -->
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
+          aria-controls="mobileMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <div class="d-none d-lg-block w-100 mt-2">
+        <ul class="nav justify-content-md-start">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item mx-3"><a class="nav-link" href="#">Features</a></li>
+          <li class="nav-item mx-3"><a class="nav-link" href="#">How It Works</a></li>
+          <li class="nav-item mx-3"><a class="nav-link" href="#">Privacy</a></li>
+          <li class="nav-item mx-3"><a class="nav-link" href="#">About US</a></li>
+          <li class="nav-item mx-3"><a class="nav-link" href="#">Technology</a></li>
+          <li class="nav-item mx-3"><a class="nav-link" href="#">Blogs</a></li>
+          <li class="nav-item mx-4"><a class="nav-link" href="#">Contact</a></li>
+          <li class="nav-item ms-auto">
+            {% if user.is_authenticated %}
+            {% if request.session.family_id %}
+            <a class="nav-link px-3 py-1 border rounded"
+              href="{% url 'dashboard:family_dashboard' request.session.family_id %}">
+              Dashboard →
+            </a>
+            {% else %}
+            <a class="nav-link px-3 py-1 border rounded" href="{% url 'families:list' %}">
+              Select Family →
+            </a>
+            {% endif %}
+            {% else %}
+            <a class="nav-link px-3 py-1 border rounded" href="{% url 'accounts:login' %}">
+              Get Started →
+            </a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS MENU (Mobile) -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="mobileMenuLabel">Family Tree</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">About US</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Technology</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        <li class="nav-item mt-2">
+          {% if user.is_authenticated %}
+          {% if request.session.family_id %}
+          <a class="nav-link px-3 py-1 border rounded"
+            href="{% url 'dashboard:family_dashboard' request.session.family_id %}">
+            Dashboard →
+          </a>
+          {% else %}
+          <a class="nav-link px-3 py-1 border rounded" href="{% url 'families:list' %}">
+            Select Family →
+          </a>
+          {% endif %}
+          {% else %}
+          <a class="nav-link px-3 py-1 border rounded" href="{% url 'accounts:login' %}">
+            Get Started →
+          </a>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid hero-container pt-0 mt-0 hero-section">
+    <div class="row flex-lg-row-reverse align-items-center g-4 py-4">
+
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{% static 'images/hero1.png' %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
+          width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6 ps-lg-5 pe-lg-3t">
+        <h1 class="display-5 fw-bold lh-1 mb-3">Preserve Your Family History Digitally</h1>
+        <p class="lead"> Create, manage, and visualize your family relationships securely using an interactive
+          family tree.
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          {% if user.is_authenticated %}
+          {% if request.session.family_id %}
+          <a class="nav-link px-3 py-1 border rounded"
+            href="{% url 'dashboard:family_dashboard' request.session.family_id %}">
+            Dashboard →
+          </a>
+          {% else %}
+          <a class="nav-link px-3 py-1 border rounded" href="{% url 'families:list' %}">
+            Select Family →
+          </a>
+          {% endif %}
+          {% else %}
+          <a class="nav-link px-3 py-1 border rounded" href="{% url 'accounts:login' %}">
+            Get Started →
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <section id="features" class="py-5">
+    <div class="row">
+      <h2 class="text-center mb-4 " style="color: #FF8364;">Features</h2>
+
+      <div class="col-sm-4">
+        <div class="card">
+          <img src=" {% static 'images/hero1.png' %}" class="card-img-top" alt="..." width="50" height="300">
+          <div class="card-body">
+            <h5 class="card-title">Relationship Mapping</h5>
+            <p class="card-text">Define parent, child, and spouse relationships accurately.</p>
+            <a href="#" class="btn" style="background-color:#FFD98E; color:white; border:none;">Go
+              somewhere</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card" style="background: transparent; border: none;">
+          <img src="{% static 'images/hero1.png' %}" class="card-img-top" alt="..." width="50" height="300">
+
+          <div class="card-body">
+            <h5 class="card-title">Tree Visualization</h5>
+            <p class="card-text">View your family structure using an interactive tree layout.</p>
+            <a href="#" class="btn" style="background-color:#FFD98E; color:white; border:none;">Go
+              somewhere</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card" style="background: transparent; border: none;">
+          <img src="{% static 'images/hero1.png' %}" class="card-img-top" alt="..." width="50" height="300">
+
+          <div class="card-body">
+            <h5 class="card-title">Private Family Groups</h5>
+            <p class="card-text">Each family tree is private and accessible only to authorized members.</p>
+            <a href="#" class="btn" style="background-color:#FFD98E; color:white; border:none;">Go
+              somewhere</a>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+  <section id="how" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4 " style="color: #FF8364;">How It Works</h2>
+      <ol class="list-group list-group-numbered">
+        <li class="list-group-item" style="background-color: #FFD98E;">Login or register an account</li>
+        <li class="list-group-item" style="background-color: #FFD98E;">Create or join a family</li>
+        <li class="list-group-item" style="background-color: #FFD98E;">Add family members</li>
+        <li class="list-group-item" style="background-color: #FFD98E;">Define relationships</li>
+        <li class="list-group-item" style="background-color: #FFD98E;">Visualize and manage your family tree
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="privacy" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4" style="color: #FF8364;">Privacy & Security</h2>
+      <p class="text-center">
+        Family data is protected using authentication, role-based access, and secure database storage.
+        Only authorized users can view or modify family information.
+      </p>
+    </div>
+  </section>
+  <!-- TECHNOLOGY -->
+  <section id="tech" class="bg-light py-5">
+    <div class="container">
+      <h2 class="text-center mb-4" style="color: #FF8364;">Technology Stack</h2>
+      <ul class="list-group list-group-flush text-center">
+        <li class="list-group-item">Django Framework</li>
+        <li class="list-group-item">PostgreSQL Database</li>
+        <li class="list-group-item">D3.js / SVG Visualization</li>
+        <li class="list-group-item">Role-Based Authentication</li>
+        <li class="list-group-item">PDF & GEDCOM Export</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-5">
+    <div class="container text-center">
+      <h2 style="color: #FF8364;">Project Information</h2>
+      <p class="mt-3">
+        Family Tree Web Application<br>
+        Academic & Internship Project
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white text-center py-3">
+    © 2026 Family Tree Web Application
+  </footer>
+
+</body>
+<script>
+  window.addEventListener('scroll', function () {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) { // When scrolled more than 50px
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
+
+
+
+</html>

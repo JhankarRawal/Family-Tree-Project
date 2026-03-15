@@ -1,102 +1,174 @@
-{% extends "base1.html" %}
-{% load static %}
-
-{% block title %}About — Family Tree{% endblock %}
-{% block meta_description %}The story, mission, and vision behind the Family Tree Web Application.{% endblock %}
-
-{% block content %}
-<section class="page-hero">
-  <div class="page-hero__pattern"></div>
-  <div class="container">
-    <div class="page-hero__content">
-      <span class="page-hero__label">Our Story</span>
-      <h1>Preserving the Stories<br>That Shaped Us</h1>
-      <p class="page-hero__sub">A platform born from the belief that every family's history deserves to be remembered, honored, and shared.</p>
-      <div class="page-hero__line"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Family Tree</title>
+  <meta name="description" content="The story, mission, and vision behind the Family Tree Web Application." />
+  <link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <div class="navbar__logo-icon">🌳</div>
+        Family Tree
+      </a>
+      <div class="navbar__nav">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="technology.html">Technology</a>
+        <a href="blogs.html">Blog</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="navbar__cta">
+        <a href="#" class="btn btn-outline" style="padding:10px 20px;font-size:.82rem;">Log In</a>
+        <a href="#" class="btn btn-primary" style="padding:10px 20px;font-size:.82rem;">Get Started</a>
+      </div>
+      <button class="navbar__hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </div>
-</section>
+  </nav>
+  <section class="page-hero">
+    <div class="page-hero__pattern"></div>
+    <div class="container">
+      <div class="page-hero__content">
+        <span class="page-hero__label">Our Story</span>
+        <h1>Preserving the Stories<br>That Shaped Us</h1>
+        <p class="page-hero__sub">A platform born from the belief that every family's history deserves to be remembered, honored, and shared.</p>
+        <div class="page-hero__line"></div>
+      </div>
+    </div>
+  </section>
 
-<section class="section">
-  <div class="container">
-    <div class="about-story">
-      <div class="about-story__visual">
-        <div style="text-align:center;padding:40px;">
-          <div style="font-size:5rem;margin-bottom:20px;">🌳</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;color:rgba(255,255,255,.8);line-height:1.5;">
-            Every branch tells<br/>a story of belonging.
+  <section class="section">
+    <div class="container">
+      <div class="about-story">
+        <div class="about-story__visual">
+          <div style="text-align:center;padding:40px;">
+            <div style="font-size:5rem;margin-bottom:20px;">🌳</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;color:rgba(255,255,255,.8);line-height:1.5;">Every branch tells<br/>a story of belonging.</div>
+            <div style="width:40px;height:2px;background:var(--gold);margin:20px auto 0;"></div>
           </div>
-          <div style="width:40px;height:2px;background:var(--gold);margin:20px auto 0;"></div>
+        </div>
+        <div>
+          <span class="section-label">The Purpose</span>
+          <h2 class="section-title">Why Genealogy Matters</h2>
+          <p style="margin-bottom:18px;">Family history is more than a collection of dates and names — it is the living record of human experience across generations. Understanding where we come from gives us context for who we are and insight into where we are going.</p>
+          <p style="margin-bottom:18px;">Research consistently shows that children and adults who know their family history have a stronger sense of identity, greater resilience in the face of adversity, and a deeper feeling of belonging. Our roots are not merely sentimental — they are foundational to psychological wellbeing.</p>
+          <p>Yet every generation, irreplaceable stories are lost. Memories fade, documents deteriorate, and elders pass on before their knowledge can be recorded. The Family Tree Web Application exists to stop that loss — to give families a living, digital archive that grows richer with every member's contribution.</p>
         </div>
       </div>
-      <div>
-        <span class="section-label">The Purpose</span>
-        <h2 class="section-title">Why Genealogy Matters</h2>
-        <p style="margin-bottom:18px;">Family history is more than a collection of dates and names — it is the living record of human experience across generations. Understanding where we come from gives us context for who we are and insight into where we are going.</p>
-        <p style="margin-bottom:18px;">Research consistently shows that children and adults who know their family history have a stronger sense of identity, greater resilience in the face of adversity, and a deeper feeling of belonging. Our roots are not merely sentimental — they are foundational to psychological wellbeing.</p>
-        <p>Yet every generation, irreplaceable stories are lost. Memories fade, documents deteriorate, and elders pass on before their knowledge can be recorded. The Family Tree Web Application exists to stop that loss — to give families a living, digital archive that grows richer with every member's contribution.</p>
-      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="container">
-  <div class="about-quote">
-    <blockquote>"In family life, love is the oil that eases friction, the cement that binds closer together, and the music that brings harmony."</blockquote>
-    <cite>— Friedrich Nietzsche</cite>
-  </div>
-</div>
-
-<section class="section section--alt">
   <div class="container">
-    <div class="text-center">
-      <span class="section-label">The Mission</span>
-      <h2 class="section-title">Preserving Heritage, Digitally</h2>
-      <p class="section-subtitle">We believe that family history is humanity's most important archive — and it deserves a platform worthy of its significance.</p>
-    </div>
-    <div class="about-story" style="margin-top:20px;">
-      <div>
-        <h3 style="margin-bottom:16px;">The Heritage Crisis</h3>
-        <p style="margin-bottom:16px;">The world loses irreplaceable family history every single day. Physical documents decay. Oral histories die with their keepers. Photographs fade. Memories become confused with time. The speed of modern life leaves little room for the patient work of genealogy research.</p>
-        <p style="margin-bottom:16px;">Families that once gathered around kitchen tables sharing stories of grandparents and great-grandparents are now scattered across continents, connected by video calls and social media but lacking a dedicated space for their shared heritage.</p>
-        <p>The Family Tree Web Application was designed to fill this void — a purpose-built platform where families collaborate on their history regardless of geography, preserving it in a structured, searchable, exportable format that will last for generations.</p>
-      </div>
-      <div>
-        <h3 style="margin-bottom:16px;">Our Vision</h3>
-        <p style="margin-bottom:16px;">We envision a world where no family story is lost to time. Where a grandchild can search for a great-great-grandmother and find not just a birth date, but a biography — her personality, her struggles, her joys, her contributions to the family she built.</p>
-        <p style="margin-bottom:16px;">Where cousins who have never met can discover each other through a shared ancestor. Where the medical history that matters for a child's health can be traced back four generations. Where cultural traditions can be documented alongside the people who carried them forward.</p>
-        <p>That is the platform we are building — not just software, but a living legacy system for every family that chooses to use it.</p>
-      </div>
+    <div class="about-quote">
+      <blockquote>"In family life, love is the oil that eases friction, the cement that binds closer together, and the music that brings harmony."</blockquote>
+      <cite>— Friedrich Nietzsche</cite>
     </div>
   </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <div class="text-center">
-      <span class="section-label">Our Values</span>
-      <h2 class="section-title">What We Stand For</h2>
-      <p class="section-subtitle">These principles guide every decision we make — from feature design to data policy.</p>
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">The Mission</span>
+        <h2 class="section-title">Preserving Heritage, Digitally</h2>
+        <p class="section-subtitle">We believe that family history is humanity's most important archive — and it deserves a platform worthy of its significance.</p>
+      </div>
+      <div class="about-story" style="margin-top:20px;">
+        <div>
+          <h3 style="margin-bottom:16px;">The Heritage Crisis</h3>
+          <p style="margin-bottom:16px;">The world loses irreplaceable family history every single day. Physical documents decay. Oral histories die with their keepers. Photographs fade. Memories become confused with time. The speed of modern life leaves little room for the patient work of genealogy research.</p>
+          <p style="margin-bottom:16px;">Families that once gathered around kitchen tables sharing stories of grandparents and great-grandparents are now scattered across continents, connected by video calls and social media but lacking a dedicated space for their shared heritage.</p>
+          <p>The Family Tree Web Application was designed to fill this void — a purpose-built platform where families collaborate on their history regardless of geography, preserving it in a structured, searchable, exportable format that will last for generations.</p>
+        </div>
+        <div>
+          <h3 style="margin-bottom:16px;">Our Vision</h3>
+          <p style="margin-bottom:16px;">We envision a world where no family story is lost to time. Where a grandchild can search for a great-great-grandmother and find not just a birth date, but a biography — her personality, her struggles, her joys, her contributions to the family she built.</p>
+          <p style="margin-bottom:16px;">Where cousins who have never met can discover each other through a shared ancestor. Where the medical history that matters for a child's health can be traced back four generations. Where cultural traditions can be documented alongside the people who carried them forward.</p>
+          <p>That is the platform we are building — not just software, but a living legacy system for every family that chooses to use it.</p>
+        </div>
+      </div>
     </div>
-    <div class="values-grid">
-      <div class="card fade-up"><div class="card__icon">🔒</div><div class="card__title">Privacy as a Foundation</div><p class="card__text">Family data is among the most sensitive personal information that exists. We treat privacy not as a checkbox but as the architectural foundation of everything we build.</p></div>
-      <div class="card fade-up"><div class="card__icon">🤝</div><div class="card__title">Collaboration Over Competition</div><p class="card__text">Family history is a collaborative endeavor. Our tools are designed to bring relatives together, not fragment them across incompatible systems. Sharing is the point.</p></div>
-      <div class="card fade-up"><div class="card__icon">♾️</div><div class="card__title">Longevity of Records</div><p class="card__text">We build for permanence. Open standards, portable exports, and data ownership policies ensure your family's history survives whatever technology changes come next.</p></div>
-      <div class="card fade-up"><div class="card__icon">🌍</div><div class="card__title">Universal Accessibility</div><p class="card__text">Every family deserves access to genealogy tools, regardless of technical expertise. Our interface is designed to be intuitive for first-time users and powerful for seasoned researchers.</p></div>
-      <div class="card fade-up"><div class="card__icon">🎯</div><div class="card__title">Accuracy Above All</div><p class="card__text">Genealogical records must be trustworthy. Our validation systems, activity logs, and source-tracking tools help families maintain the integrity of their historical records.</p></div>
-      <div class="card fade-up"><div class="card__icon">💡</div><div class="card__title">Continuous Innovation</div><p class="card__text">Family needs evolve, and so does our platform. We listen to our users, study emerging genealogy research methods, and continuously improve our tools to serve families better.</p></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="section section--navy" style="padding:80px 0;">
-  <div class="container text-center">
-    <span class="section-label">Join Us</span>
-    <h2 style="color:#fff;margin-bottom:16px;">Become Part of the Story</h2>
-    <p style="color:rgba(255,255,255,.6);max-width:500px;margin:0 auto 36px;">Thousands of families are already building their heritage on our platform. Your story is waiting to be told.</p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="{% url 'contact' %}"  style="color: #FF8364;" class="btn btn-outline">Get in Touch</a>
+  <section class="section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">Our Values</span>
+        <h2 class="section-title">What We Stand For</h2>
+        <p class="section-subtitle">These principles guide every decision we make — from feature design to data policy.</p>
+      </div>
+      <div class="values-grid">
+        <div class="card fade-up"><div class="card__icon">🔒</div><div class="card__title">Privacy as a Foundation</div><p class="card__text">Family data is among the most sensitive personal information that exists. We treat privacy not as a checkbox but as the architectural foundation of everything we build.</p></div>
+        <div class="card fade-up"><div class="card__icon">🤝</div><div class="card__title">Collaboration Over Competition</div><p class="card__text">Family history is a collaborative endeavor. Our tools are designed to bring relatives together, not fragment them across incompatible systems. Sharing is the point.</p></div>
+        <div class="card fade-up"><div class="card__icon">♾️</div><div class="card__title">Longevity of Records</div><p class="card__text">We build for permanence. Open standards, portable exports, and data ownership policies ensure your family's history survives whatever technology changes come next.</p></div>
+        <div class="card fade-up"><div class="card__icon">🌍</div><div class="card__title">Universal Accessibility</div><p class="card__text">Every family deserves access to genealogy tools, regardless of technical expertise. Our interface is designed to be intuitive for first-time users and powerful for seasoned researchers.</p></div>
+        <div class="card fade-up"><div class="card__icon">🎯</div><div class="card__title">Accuracy Above All</div><p class="card__text">Genealogical records must be trustworthy. Our validation systems, activity logs, and source-tracking tools help families maintain the integrity of their historical records.</p></div>
+        <div class="card fade-up"><div class="card__icon">💡</div><div class="card__title">Continuous Innovation</div><p class="card__text">Family needs evolve, and so does our platform. We listen to our users, study emerging genealogy research methods, and continuously improve our tools to serve families better.</p></div>
+      </div>
     </div>
-  </div>
-</section>
-{% endblock %}
+  </section>
+
+  <section class="section section--navy" style="padding:80px 0;">
+    <div class="container text-center">
+      <span class="section-label">Join Us</span>
+      <h2 style="color:#fff;margin-bottom:16px;">Become Part of the Story</h2>
+      <p style="color:rgba(255,255,255,.6);max-width:500px;margin:0 auto 36px;">Thousands of families are already building their heritage on our platform. Your story is waiting to be told.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="#" class="btn btn-primary">Start Your Tree</a>
+        <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__gold-line"></div>
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><div class="footer__brand-icon">🌳</div>Family Tree</div>
+          <p class="footer__desc">A genealogy platform helping families discover, document, and share their ancestry across generations. Preserve your heritage — digitally, beautifully, forever.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">Navigate</div>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="how-it-works.html">How It Works</a></li>
+            <li><a href="technology.html">Technology</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Resources</div>
+          <ul class="footer__links">
+            <li><a href="blogs.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Legal</div>
+          <ul class="footer__links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">GDPR</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2024 Family Tree Web Application. All rights reserved.</span>
+        <span>Built with ❤️ for families everywhere</span>
+      </div>
+    </div>
+  </footer>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+  <script src="main.js"></script>
+</body>
+</html>
