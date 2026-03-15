@@ -36,3 +36,12 @@ def create_or_update_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
     else:
         Profile.objects.get_or_create(user=instance)
+        
+from django.contrib.postgres.operations import TrigramExtension
+from django.db import migrations
+
+class Migration(migrations.Migration):
+
+    operations = [
+        TrigramExtension(),
+    ]
