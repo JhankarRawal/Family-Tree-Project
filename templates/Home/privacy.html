@@ -1,192 +1,180 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy — Family Tree Web Application</title>
-  <meta name="description" content="How we protect your family's data." />
-  <link rel="stylesheet" href="style1.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-</head>
-<body>
-<div class="reading-progress"></div>
-<nav class="navbar">
-  <a href="index.html" class="nav-logo"><div class="logo-icon">🌳</div>FamilyTree</a>
-  <ul class="nav-links">
-    <li><a href="features.html">Features</a></li>
-    <li><a href="how-it-works.html">How It Works</a></li>
-    <li><a href="technology.html">Technology</a></li>
-    <li><a href="blogs.html">Blog</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="privacy.html">Privacy</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="/login" class="btn btn-primary nav-cta">Get Started</a></li>
-  </ul>
-  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
-</nav>
-<nav class="nav-mobile">
-  <a href="features.html">Features</a><a href="how-it-works.html">How It Works</a><a href="technology.html">Technology</a><a href="blogs.html">Blog</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a>
-  <a href="/login" class="btn btn-primary" style="margin-top:0.5rem;justify-content:center;">Get Started</a>
-</nav>
+{% extends "base1.html" %}
 
+{% block extra_head %}
+<style>
+  .policy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .policy-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem 1.8rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .policy-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  .policy-card .icon {
+    font-size: 2rem;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  .policy-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--navy);
+  }
+
+  .policy-card ul {
+    padding-left: 1.2rem;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .policy-card ul li {
+    margin-bottom: 0.4rem;
+  }
+</style>
+{% endblock extra_head %}
+
+{% block content %}
 <section class="page-hero">
-  <div class="hero-content">
-    <span class="hero-eyebrow">Your Data. Your Family.</span>
-    <h1>Privacy Policy</h1>
-    <p>We believe your family's history belongs to you — and only you. Here is exactly how we protect it.</p>
-  </div>
-</section>
-
-<section class="section-sm bg-alt">
   <div class="container">
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.2rem;max-width:700px;margin:0 auto;" class="reveal">
-      <span style="font-size:1.8rem;">📋</span>
-      <div>
-        <h4 style="font-size:1rem;margin-bottom:0.2rem;">Last Updated: January 2025</h4>
-        <p style="font-size:0.88rem;margin:0;">This Privacy Policy describes how the Family Tree Web Application collects, uses, and protects your information. By using our platform, you agree to these terms.</p>
-      </div>
+    <div class="page-hero__content">
+      <span class="page-hero__label">Privacy & Security</span>
+      <h1>Privacy Policy</h1>
+      <p>We believe your family's history belongs to you — and only you. Here is exactly how we protect it.</p>
+      <div class="page-hero__line"></div>
     </div>
   </div>
 </section>
 
-<section class="section-sm">
+<section class="section">
   <div class="container">
-    <div class="about-highlight reveal" style="text-align:center;">
-      <h2 style="margin-bottom:1rem;">Our Core Privacy Promise</h2>
-      <p style="max-width:600px;margin:0 auto;font-size:1rem;color:rgba(255,255,255,0.78);">We will never sell, rent, or share your personal data with third-party advertisers. Your family's information is used solely to provide and improve the Family Tree Web Application.</p>
-      <div class="stat-row" style="margin-top:2rem;">
-        <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Third Parties Selling Your Data</div></div>
-        <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Private Trees by Default</div></div>
-        <div class="stat-item"><div class="stat-num">256-bit</div><div class="stat-label">Encryption Standard</div></div>
+
+    <!-- Last Updated Card -->
+    <div class="policy-card" style="max-width:700px;margin:0 auto;">
+      <span class="icon">📋</span>
+      <h3>Last Updated: January 2025</h3>
+      <p>This Privacy Policy describes how the Family Tree Web Application collects, uses, and protects your information. By using our platform, you agree to these terms.</p>
+    </div>
+
+    <!-- Policy Cards Grid -->
+    <div class="policy-grid">
+
+      <div class="policy-card">
+        <span class="icon">🔑</span>
+        <h3>Data Ownership</h3>
+        <p>You own your data. Every piece of information you add — names, dates, photos, and relationship records — belongs entirely to you and your family.</p>
+        <ul>
+          <li>Full intellectual property rights over all content you create.</li>
+          <li>Export your complete family tree anytime in PDF or GEDCOM format.</li>
+          <li>Account and data deletion within 30 days.</li>
+          <li>No ownership claimed by the platform.</li>
+        </ul>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="section bg-alt">
-  <div class="container" style="max-width:860px;">
+      <div class="policy-card">
+        <span class="icon">🌳</span>
+        <h3>Private Family Trees</h3>
+        <p>Privacy is the default — not an option. Every family tree is private and accessible only to invited people.</p>
+        <ul>
+          <li>Private by default, access only by invitation.</li>
+          <li>Control collaborator permissions individually.</li>
+          <li>Revoke access instantly at any time.</li>
+          <li>Living persons' details obscured automatically.</li>
+        </ul>
+      </div>
 
-    <div class="policy-section reveal">
-      <h3><span class="icon">🔑</span>1. Data Ownership</h3>
-      <p>You own your data. Every piece of information you add — names, dates, photos, biographical notes, and relationship records — belongs entirely to you and your family.</p>
-      <ul>
-        <li>You retain full intellectual property rights over all content you create.</li>
-        <li>You can export your complete family tree at any time in PDF or GEDCOM format.</li>
-        <li>You can permanently delete your account and all associated data with a single request.</li>
-        <li>We do not claim any ownership or license over your family's genealogical records.</li>
-        <li>Upon account deletion, all your data is permanently removed from our servers within 30 days.</li>
-      </ul>
-    </div>
+      <div class="policy-card">
+        <span class="icon">🔐</span>
+        <h3>Secure Authentication</h3>
+        <ul>
+          <li>Passwords hashed with PBKDF2 + SHA-256.</li>
+          <li>CSRF protection on all web forms.</li>
+          <li>HttpOnly & Secure cookies.</li>
+          <li>Rate-limited login attempts.</li>
+          <li>Password reset links expire in 24h.</li>
+          <li>TLS/HTTPS encryption for all connections.</li>
+        </ul>
+      </div>
 
-    <div class="policy-section reveal">
-      <h3><span class="icon">🌳</span>2. Private Family Trees</h3>
-      <p>Privacy is the default — not an option you turn on. Every family tree is private from the moment of creation and accessible only to people you explicitly invite.</p>
-      <ul>
-        <li>All new trees are set to "Private" by default — no one can view them without your approval.</li>
-        <li>You control the exact list of people who can access each tree you own.</li>
-        <li>Invited collaborators can be assigned read-only or edit permissions independently.</li>
-        <li>You can revoke any collaborator's access at any time, immediately.</li>
-        <li>Tree contents are never indexed by search engines or publicly discoverable.</li>
-        <li>Living persons' sensitive details are automatically obscured from non-admin viewers.</li>
-      </ul>
-    </div>
+      <div class="policy-card">
+        <span class="icon">👥</span>
+        <h3>Access Control</h3>
+        <ul>
+          <li>Owner: Full control.</li>
+          <li>Editor: Add/edit members, no permissions management.</li>
+          <li>Viewer: Read-only access.</li>
+          <li>Internal staff cannot access without request.</li>
+          <li>All access events logged.</li>
+        </ul>
+      </div>
 
-    <div class="policy-section reveal">
-      <h3><span class="icon">🔐</span>3. Secure Authentication</h3>
-      <p>Your account security is built on Django's hardened authentication system — protecting millions of applications worldwide.</p>
-      <ul>
-        <li>Passwords are hashed using PBKDF2 with SHA-256 — never stored in plain text.</li>
-        <li>All web forms are protected with CSRF (Cross-Site Request Forgery) tokens.</li>
-        <li>Session cookies use HttpOnly and Secure flags to prevent client-side access.</li>
-        <li>Login attempts are rate-limited to prevent brute-force attacks.</li>
-        <li>Password reset links are single-use and expire within 24 hours.</li>
-        <li>All connections use TLS/HTTPS encryption in transit.</li>
-      </ul>
-    </div>
+      <div class="policy-card">
+        <span class="icon">🛡️</span>
+        <h3>Data Protection</h3>
+        <ul>
+          <li>Encrypted PostgreSQL databases.</li>
+          <li>Daily encrypted backups.</li>
+          <li>ISO 27001-certified data centers.</li>
+          <li>Regular security audits.</li>
+          <li>Breach notifications within 72 hours.</li>
+        </ul>
+      </div>
 
-    <div class="policy-section reveal">
-      <h3><span class="icon">👥</span>4. Access Control</h3>
-      <p>Our multi-layer permission system ensures the right people see the right information — and nothing more. Access is explicit, audited, and revocable.</p>
-      <ul>
-        <li><strong>Owner:</strong> Full control — view, edit, invite, and delete the tree.</li>
-        <li><strong>Editor:</strong> Can add and edit members, but cannot manage permissions.</li>
-        <li><strong>Viewer:</strong> Read-only access — cannot make any changes.</li>
-        <li>Our internal staff cannot access your tree contents without an explicit support request from you.</li>
-        <li>All access events are logged with timestamps and IP addresses for your review.</li>
-      </ul>
-    </div>
+      <div class="policy-card">
+        <span class="icon">📊</span>
+        <h3>Information Collected</h3>
+        <ul>
+          <li>Account data: Name, email, hashed password.</li>
+          <li>Family tree data: All genealogical records added.</li>
+          <li>Usage logs: Activity within your tree.</li>
+          <li>Technical logs: Server logs retained 90 days.</li>
+          <li>Cookies: Authentication only, no tracking.</li>
+        </ul>
+      </div>
 
-    <div class="policy-section reveal">
-      <h3><span class="icon">🛡️</span>5. Data Protection</h3>
-      <p>We implement technical and organisational safeguards to protect your data against unauthorized access, loss, or destruction at every infrastructure layer.</p>
-      <ul>
-        <li>All data is stored in encrypted PostgreSQL databases on secured servers.</li>
-        <li>Database backups are performed daily and retained for 30 days, encrypted at rest.</li>
-        <li>Our servers are hosted in ISO 27001-certified data centers with physical security controls.</li>
-        <li>We regularly perform security audits and vulnerability assessments.</li>
-        <li>Affected users will be notified within 72 hours in the event of a confirmed breach.</li>
-      </ul>
-    </div>
+      <div class="policy-card">
+        <span class="icon">⚖️</span>
+        <h3>Responsible Data Usage</h3>
+        <ul>
+          <li>✅ Display family tree & platform features.</li>
+          <li>✅ Security notifications & password resets.</li>
+          <li>✅ Aggregated anonymized usage stats.</li>
+          <li>❌ No selling or sharing to third parties.</li>
+          <li>❌ No AI training without consent.</li>
+        </ul>
+      </div>
 
-    <div class="policy-section reveal">
-      <h3><span class="icon">📊</span>6. What Information We Collect</h3>
-      <p>We collect only the minimum information necessary to provide our service. We do not collect, sell, or use your data for advertising.</p>
-      <ul>
-        <li><strong>Account Data:</strong> Name, email address, and hashed password upon registration.</li>
-        <li><strong>Family Tree Data:</strong> All genealogical records you choose to add — stored securely and owned by you.</li>
-        <li><strong>Usage Logs:</strong> Activity logs within your tree for your benefit.</li>
-        <li><strong>Technical Logs:</strong> Server access logs retained for 90 days for security purposes only.</li>
-        <li><strong>Cookies:</strong> Session cookies for authentication — no tracking or advertising cookies.</li>
-      </ul>
-    </div>
+      <div class="policy-card">
+        <span class="icon">✊</span>
+        <h3>Your Rights</h3>
+        <ul>
+          <li>Right to Access, Rectification, Erasure, Portability.</li>
+          <li>Contact via <a href="contact.html" style="color:var(--gold);font-weight:600;">contact page</a>.</li>
+        </ul>
+      </div>
 
-    <div class="policy-section reveal">
-      <h3><span class="icon">⚖️</span>7. Responsible Data Usage</h3>
-      <p>The data you provide is used exclusively to operate and improve the Family Tree Web Application.</p>
-      <ul>
-        <li>✅ We use your data to display your family tree and provide platform features.</li>
-        <li>✅ We use your email for account security notifications and password resets.</li>
-        <li>✅ We use anonymized, aggregated usage data to improve platform performance.</li>
-        <li>❌ We never sell your personal data to any third party.</li>
-        <li>❌ We never share your data with advertisers or marketing companies.</li>
-        <li>❌ We never use AI to train models on your personal family records without explicit consent.</li>
-      </ul>
     </div>
 
-    <div class="policy-section reveal">
-      <h3><span class="icon">✊</span>8. Your Rights</h3>
-      <p>We honor data rights for all users, regardless of jurisdiction.</p>
-      <ul>
-        <li><strong>Right to Access:</strong> Request a complete copy of all data we hold about you.</li>
-        <li><strong>Right to Rectification:</strong> Correct any inaccurate personal information.</li>
-        <li><strong>Right to Erasure:</strong> Request deletion of your account and all associated data.</li>
-        <li><strong>Right to Portability:</strong> Export your family tree in GEDCOM or PDF format at any time.</li>
-        <li>To exercise any of these rights, contact us at <a href="contact.html" style="color:var(--gold);font-weight:600;">our contact page</a>.</li>
-      </ul>
-    </div>
-
-    <div style="background:var(--navy);border-radius:12px;padding:2.5rem;text-align:center;margin-top:2rem;" class="reveal">
-      <h3 style="color:white;margin-bottom:0.75rem;">Questions About Our Privacy Practices?</h3>
-      <p style="color:rgba(255,255,255,0.72);margin-bottom:1.5rem;">We're committed to transparency. If you have any questions, please reach out — we respond within 2 business days.</p>
+    <!-- CTA Card -->
+    <div class="policy-card" style="background:var(--navy);color:white;text-align:center;margin-top:2rem;">
+      <h3 style="margin-bottom:0.5rem;">Questions About Our Privacy Practices?</h3>
+      <p style="margin-bottom:1rem;color:rgba(255,255,255,0.72);">We're committed to transparency. Reach out — we respond within 2 business days.</p>
       <a href="contact.html" class="btn btn-primary">Contact Us</a>
     </div>
 
   </div>
 </section>
-
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-icon">🌳</div>FamilyTree</a><p>A digital platform for preserving ancestry, heritage, and genealogy — helping families connect across generations.</p></div>
-      <div class="footer-col"><h4>Platform</h4><ul><li><a href="features.html">Features</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="technology.html">Technology</a></li><li><a href="blogs.html">Blog</a></li></ul></div>
-      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy Policy</a></li></ul></div>
-      <div class="footer-col"><h4>Get Started</h4><ul><li><a href="/register">Create Account</a></li><li><a href="/login">Sign In</a></li><li><a href="index.html">Home</a></li></ul></div>
-    </div>
-    <div class="footer-bottom"><p>&copy; 2025 FamilyTree Web Application. All rights reserved.</p><p>Built with Django &amp; D3.js</p></div>
-  </div>
-</footer>
-<button class="back-to-top" aria-label="Back to top">↑</button>
-<script src="main.js"></script>
-</body>
-</html>
+{% endblock content %}

@@ -1,202 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact — Family Tree</title>
-  <meta name="description" content="Get in touch with the Family Tree team. We're here to help." />
-  <link rel="stylesheet" href="style1.css" />
-</head>
-<body>
-  <nav class="navbar">
-    <div class="navbar__inner">
-      <a href="index.html" class="navbar__logo">
-        <div class="navbar__logo-icon">🌳</div>
-        Family Tree
-      </a>
-      <div class="navbar__nav">
-        <a href="index.html">Home</a>
-        <a href="features.html">Features</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="technology.html">Technology</a>
-        <a href="blogs.html">Blog</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="active">Contact</a>
-      </div>
-      <div class="navbar__cta">
-        <a href="#" class="btn btn-outline" style="padding:10px 20px;font-size:.82rem;">Log In</a>
-        <a href="#" class="btn btn-primary" style="padding:10px 20px;font-size:.82rem;">Get Started</a>
-      </div>
-      <button class="navbar__hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+{% extends "base1.html" %}
+
+{% block content %}
+
+<!-- ── Hero Section ─────────────────────────────────────── -->
+<section class="page-hero">
+  <div class="page-hero__pattern"></div>
+  <div class="container">
+    <div class="page-hero__content">
+      <span class="page-hero__label">Get in Touch</span>
+      <h1>We'd Love to Hear From You</h1>
+      <p class="page-hero__sub">Questions, feedback, or partnership inquiries — our team responds to every message.</p>
+      <div class="page-hero__line"></div>
     </div>
-  </nav>
-  <section class="page-hero">
-    <div class="page-hero__pattern"></div>
-    <div class="container">
-      <div class="page-hero__content">
-        <span class="page-hero__label">Get in Touch</span>
-        <h1>We'd Love to Hear From You</h1>
-        <p class="page-hero__sub">Questions, feedback, or partnership inquiries — our team responds to every message.</p>
-        <div class="page-hero__line"></div>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="container">
-      <div class="contact-layout">
+<!-- ── Contact Layout ───────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
 
-        <!-- Info Column -->
-        <div class="contact-info-card fade-up">
-          <h3>Contact Information</h3>
-          <p>Reach us through any of the channels below. We typically respond within 24 hours on business days.</p>
+      <!-- Info Column -->
+      <div class="contact-info-card fade-up">
+        <h3>Contact Information</h3>
+        <p>Reach us through any of the channels below. We typically respond within 24 hours on business days.</p>
 
-          <div class="contact-detail">
-            <div class="contact-detail__icon">📧</div>
-            <div>
-              <div class="contact-detail__label">Email</div>
-              <div class="contact-detail__value">hello@familytree.app</div>
-            </div>
-          </div>
-
-          <div class="contact-detail">
-            <div class="contact-detail__icon">🛡️</div>
-            <div>
-              <div class="contact-detail__label">Privacy &amp; Security</div>
-              <div class="contact-detail__value">privacy@familytree.app</div>
-            </div>
-          </div>
-
-          <div class="contact-detail">
-            <div class="contact-detail__icon">💡</div>
-            <div>
-              <div class="contact-detail__label">Support</div>
-              <div class="contact-detail__value">support@familytree.app</div>
-            </div>
-          </div>
-
-          <div class="contact-detail">
-            <div class="contact-detail__icon">🤝</div>
-            <div>
-              <div class="contact-detail__label">Partnerships</div>
-              <div class="contact-detail__value">partners@familytree.app</div>
-            </div>
-          </div>
-
-          <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:28px;margin-top:10px;">
-            <div class="footer__col-title" style="margin-bottom:12px;">Quick Links</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <a href="features.html" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ View Features</a>
-              <a href="how-it-works.html" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ How It Works</a>
-              <a href="privacy.html" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ Privacy Policy</a>
-            </div>
+        <div class="contact-detail">
+          <div class="contact-detail__icon">📧</div>
+          <div>
+            <div class="contact-detail__label">Email</div>
+            <div class="contact-detail__value">hello@familytree.app</div>
           </div>
         </div>
 
-        <!-- Form Column -->
-        <div class="contact-form-card fade-up">
-          <span class="section-label">Send a Message</span>
-          <h2 class="section-title" style="margin-bottom:8px;">How Can We Help?</h2>
-          <p style="margin-bottom:36px;">Fill out the form below and we'll get back to you as soon as possible.</p>
+        <div class="contact-detail">
+          <div class="contact-detail__icon">🛡️</div>
+          <div>
+            <div class="contact-detail__label">Privacy &amp; Security</div>
+            <div class="contact-detail__value">privacy@familytree.app</div>
+          </div>
+        </div>
 
-          <form id="contactForm" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="name">Full Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Jane Smith" />
-                <div class="form-error" id="nameError"></div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="email">Email Address</label>
-                <input type="email" id="email" class="form-control" placeholder="jane@example.com" />
-                <div class="form-error" id="emailError"></div>
-              </div>
+        <div class="contact-detail">
+          <div class="contact-detail__icon">💡</div>
+          <div>
+            <div class="contact-detail__label">Support</div>
+            <div class="contact-detail__value">support@familytree.app</div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail__icon">🤝</div>
+          <div>
+            <div class="contact-detail__label">Partnerships</div>
+            <div class="contact-detail__value">partners@familytree.app</div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:28px;margin-top:10px;">
+          <div class="footer__col-title" style="margin-bottom:12px;">Quick Links</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a href="features.html" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ View Features</a>
+            <a href="how-it-works.html" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ How It Works</a>
+            <a href="privacy.html" style="color:rgba(255,255,255,.6);font-size:.88rem;transition:var(--transition);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,.6)'">→ Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="contact-form-card fade-up">
+        <span class="section-label">Send a Message</span>
+        <h2 class="section-title" style="margin-bottom:8px;">How Can We Help?</h2>
+        <p style="margin-bottom:36px;">Fill out the form below and we'll get back to you as soon as possible.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="name">Full Name</label>
+              <input type="text" id="name" class="form-control" placeholder="Jane Smith" />
+              <div class="form-error" id="nameError"></div>
             </div>
             <div class="form-group">
-              <label class="form-label" for="subject">Subject</label>
-              <input type="text" id="subject" class="form-control" placeholder="What is your message about?" />
-              <div class="form-error" id="subjectError"></div>
+              <label class="form-label" for="email">Email Address</label>
+              <input type="email" id="email" class="form-control" placeholder="jane@example.com" />
+              <div class="form-error" id="emailError"></div>
             </div>
-            <div class="form-group">
-              <label class="form-label" for="message">Message</label>
-              <textarea id="message" class="form-control" rows="6" placeholder="Tell us how we can help you..."></textarea>
-              <div class="form-error" id="messageError"></div>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:16px;">
-              Send Message ✉️
-            </button>
-            <div class="form-success" id="formSuccess">
-              ✅ Your message has been sent! We'll get back to you within 24 hours.
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject</label>
+            <input type="text" id="subject" class="form-control" placeholder="What is your message about?" />
+            <div class="form-error" id="subjectError"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea id="message" class="form-control" rows="6" placeholder="Tell us how we can help you..."></textarea>
+            <div class="form-error" id="messageError"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:16px;">
+            Send Message ✉️
+          </button>
+          <div class="form-success" id="formSuccess">
+            ✅ Your message has been sent! We'll get back to you within 24 hours.
+          </div>
+        </form>
+      </div>
 
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FAQ -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="text-center">
-        <span class="section-label">Common Questions</span>
-        <h2 class="section-title">Before You Write to Us</h2>
-        <p class="section-subtitle">You might find an instant answer here.</p>
+<!-- ── FAQ Section ─────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container text-center">
+    <span class="section-label">Common Questions</span>
+    <h2 class="section-title">Before You Write to Us</h2>
+    <p class="section-subtitle">You might find an instant answer here.</p>
+    <div class="grid-2 mt-4">
+      <div class="card fade-up">
+        <div class="card__title">How quickly do you respond?</div>
+        <p class="card__text">We aim to respond to all messages within 24 hours on business days. For urgent security issues, we prioritize response within 4 hours.</p>
       </div>
-      <div class="grid-2">
-        <div class="card fade-up"><div class="card__title">How quickly do you respond?</div><p class="card__text">We aim to respond to all messages within 24 hours on business days. For urgent security issues, we prioritize response within 4 hours.</p></div>
-        <div class="card fade-up"><div class="card__title">Do you offer customer support in other languages?</div><p class="card__text">Currently our primary support language is English. We are working to expand multilingual support and appreciate your patience.</p></div>
-        <div class="card fade-up"><div class="card__title">I forgot my password. What do I do?</div><p class="card__text">Use the "Forgot Password" link on the login page. You'll receive a password reset email within a few minutes. Check your spam folder if it doesn't arrive.</p></div>
-        <div class="card fade-up"><div class="card__title">Can I request a feature?</div><p class="card__text">Absolutely. We love hearing from users about the features that would make the biggest difference. Use the contact form above with the subject "Feature Request".</p></div>
+      <div class="card fade-up">
+        <div class="card__title">Do you offer customer support in other languages?</div>
+        <p class="card__text">Currently our primary support language is English. We are working to expand multilingual support and appreciate your patience.</p>
       </div>
-    </div>
-  </section>
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__gold-line"></div>
-      <div class="footer__grid">
-        <div>
-          <div class="footer__brand-name"><div class="footer__brand-icon">🌳</div>Family Tree</div>
-          <p class="footer__desc">A genealogy platform helping families discover, document, and share their ancestry across generations. Preserve your heritage — digitally, beautifully, forever.</p>
-        </div>
-        <div>
-          <div class="footer__col-title">Navigate</div>
-          <ul class="footer__links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="features.html">Features</a></li>
-            <li><a href="how-it-works.html">How It Works</a></li>
-            <li><a href="technology.html">Technology</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer__col-title">Resources</div>
-          <ul class="footer__links">
-            <li><a href="blogs.html">Blog</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer__col-title">Legal</div>
-          <ul class="footer__links">
-            <li><a href="privacy.html">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Cookie Policy</a></li>
-            <li><a href="#">GDPR</a></li>
-          </ul>
-        </div>
+      <div class="card fade-up">
+        <div class="card__title">I forgot my password. What do I do?</div>
+        <p class="card__text">Use the "Forgot Password" link on the login page. You'll receive a password reset email within a few minutes. Check your spam folder if it doesn't arrive.</p>
       </div>
-      <div class="footer__bottom">
-        <span>&copy; 2024 Family Tree Web Application. All rights reserved.</span>
-        <span>Built with ❤️ for families everywhere</span>
+      <div class="card fade-up">
+        <div class="card__title">Can I request a feature?</div>
+        <p class="card__text">Absolutely. We love hearing from users about the features that would make the biggest difference. Use the contact form above with the subject "Feature Request".</p>
       </div>
     </div>
-  </footer>
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-  <script src="main.js"></script>
-</body>
-</html>
+  </div>
+</section>
+
+{% endblock content %}

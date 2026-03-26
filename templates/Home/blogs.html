@@ -1,49 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog — Family Tree</title>
-  <meta name="description" content="Genealogy insights, guides, and heritage stories from the Family Tree blog." />
-  <link rel="stylesheet" href="style1.css" />
-  <style>
-    .blog-filter { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
-    .blog-filter-btn {
-      padding:9px 22px; border-radius:30px; border:1.5px solid rgba(11,37,69,.2);
-      background:transparent; font-family:'Jost',sans-serif; font-size:.82rem; font-weight:600;
-      color:var(--navy); cursor:pointer; transition:var(--transition);
-    }
-    .blog-filter-btn:hover, .blog-filter-btn.active {
-      background:var(--navy); color:var(--white); border-color:var(--navy);
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="navbar__inner">
-      <a href="index.html" class="navbar__logo">
-        <div class="navbar__logo-icon">🌳</div>
-        Family Tree
-      </a>
-      <div class="navbar__nav">
-        <a href="index.html">Home</a>
-        <a href="features.html">Features</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="technology.html">Technology</a>
-        <a href="blogs.html" class="active">Blog</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="navbar__cta">
-        <a href="#" class="btn btn-outline" style="padding:10px 20px;font-size:.82rem;">Log In</a>
-        <a href="#" class="btn btn-primary" style="padding:10px 20px;font-size:.82rem;">Get Started</a>
-      </div>
-      <button class="navbar__hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+{% extends "base1.html" %}
+{% block extra_head %}
+<style>
+  .blog-filter { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .blog-filter-btn {
+    padding:9px 22px; border-radius:30px; border:1.5px solid rgba(11,37,69,.2);
+    background:transparent; font-family:'Jost',sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--navy); cursor:pointer; transition:var(--transition);
+  }
+  .blog-filter-btn:hover, .blog-filter-btn.active {
+    background:var(--navy); color:var(--white); border-color:var(--navy);
+  }
+</style>
+{% endblock extra_head %}
+
+{% block content %}
+
+<!-- ── Hero Section ─────────────────────────────────────── -->
   <section class="page-hero">
     <div class="page-hero__pattern"></div>
     <div class="container">
@@ -225,49 +197,5 @@
       </div>
     </div>
   </section>
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__gold-line"></div>
-      <div class="footer__grid">
-        <div>
-          <div class="footer__brand-name"><div class="footer__brand-icon">🌳</div>Family Tree</div>
-          <p class="footer__desc">A genealogy platform helping families discover, document, and share their ancestry across generations. Preserve your heritage — digitally, beautifully, forever.</p>
-        </div>
-        <div>
-          <div class="footer__col-title">Navigate</div>
-          <ul class="footer__links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="features.html">Features</a></li>
-            <li><a href="how-it-works.html">How It Works</a></li>
-            <li><a href="technology.html">Technology</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer__col-title">Resources</div>
-          <ul class="footer__links">
-            <li><a href="blogs.html">Blog</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer__col-title">Legal</div>
-          <ul class="footer__links">
-            <li><a href="privacy.html">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Cookie Policy</a></li>
-            <li><a href="#">GDPR</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <span>&copy; 2024 Family Tree Web Application. All rights reserved.</span>
-        <span>Built with ❤️ for families everywhere</span>
-      </div>
-    </div>
-  </footer>
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-  <script src="main.js"></script>
-</body>
-</html>
+
+{% endblock content %}
